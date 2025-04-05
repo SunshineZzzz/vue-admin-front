@@ -1,24 +1,78 @@
 <script lang="ts" setup>
-  import { ref, reactive } from 'vue'
+  import { ref, reactive, useTemplateRef } from 'vue'
+  import forget from './components/forget_password.vue'
+  import {
+    type ILoginData, type IRegisterData, register, login, returnMenuList
+  } from '@/api/login'
+  import { ElMessage } from 'element-plus'
+  import { useRouter } from 'vue-router'
 
+  // 路由实例
+  const router = useRouter()
+
+  // 登录注册切换
   const activeName = ref('first')
-  // 表单接口
-  interface IFormData {
-    account: string|null;
-    password: string;
-    rePassword?: string;
-  }
+
   // 登录表单数据
-  const loginData :IFormData = reactive<IFormData>({
-    account: null,
+  const loginData :ILoginData = reactive<ILoginData>({
+    account: '',
     password: '',
   })
   // 注册表单数据
-  const registerData :IFormData = reactive<IFormData>({
-    account: null,
-		password: '',
-		rePassword: '',
+  const registerData :IRegisterData = reactive<IRegisterData>({
+    account: '',
+    password: '',
+    rePassword: '',
   })
+
+  // 登录
+  const Login = async () => {
+    const res = await login(loginData)
+    if (res.data.status !== 0) {
+      ElMessage.error(res.data.message)
+      return
+    }
+
+    ElMessage.success(res.data.message)
+    // const { id, token, name, account, email, department } = res.data
+    const { token } = res.data.data
+    localStorage.setItem('token', token)
+    router.push('/home')
+    
+    // localStorage.setItem('id', id)
+    // const routerList = await returnMenuList(id) as any
+    // menuStore.setRouter(routerList)
+    // localStorage.setItem('token', token)
+    // localStorage.setItem('name', name)
+    // localStorage.setItem('department', department)
+    // await loginLog(account,name,email)
+    // await store.userInfo(id)
+    // // 跳转
+    // router.push('/home')
+  }
+
+  // 注册
+  const Register = async () => {
+    if (registerData.password !== registerData.rePassword) {
+      ElMessage.error("两次密码不一致")
+      return
+    }
+    registerData.rePassword = undefined
+    const res = await register(registerData)
+    if (res.data.status !== 0) {
+      ElMessage.error(res.data.message)
+      return
+    }
+    ElMessage.success(res.data.message)
+    activeName.value = 'first'
+  }
+
+  // 模板引用也可以被用在一个子组件上
+  const forgetP = useTemplateRef('forgetP')
+  // 打开忘记密码弹窗
+  const openForget = () => {
+    forgetP.value?.open()
+  }
 </script>
 
 <template>
@@ -47,7 +101,7 @@
                       <span class="forget-password-button" @click="openForget">忘记密码</span>
                     </div>
                     <div class="footer-button">
-                      <el-button type="primary" @click="login">登录</el-button>
+                      <el-button type="primary" @click="Login">登录</el-button>
                     </div>
                     <div class="footer-go-register">
                       还没有账号？<span class="go-register">马上注册</span>
@@ -57,18 +111,18 @@
               </el-tab-pane>
               <el-tab-pane label="注册" name="second">
                 <el-form class="login-form " label-width="auto">
-									<el-form-item label="账号">
-										<el-input v-model="registerData.account" placeholder="账号长度6-12位" />
-									</el-form-item>
-									<el-form-item label="密码">
-										<el-input v-model="registerData.password" placeholder="密码需长度6-12位含字母数字" />
-									</el-form-item>
-									<el-form-item label="确认密码">
-										<el-input v-model="registerData.rePassword" placeholder="请再次输入密码" />
-									</el-form-item>
-									<div class="footer-button">
-										<el-button type="primary" @click="Register">注册</el-button>
-									</div>                  
+                  <el-form-item label="账号">
+                    <el-input v-model="registerData.account" placeholder="账号长度6-12位" />
+                  </el-form-item>
+                  <el-form-item label="密码">
+                    <el-input v-model="registerData.password" placeholder="密码需长度6-12位含字母数字" show-password />
+                  </el-form-item>
+                  <el-form-item label="确认密码">
+                    <el-input v-model="registerData.rePassword" placeholder="请再次输入密码" show-password />
+                  </el-form-item>
+                  <div class="footer-button">
+                    <el-button type="primary" @click="Register">注册</el-button>
+                  </div>                  
                 </el-form>
               </el-tab-pane>
             </el-tabs>
@@ -85,6 +139,7 @@
       </el-footer>
     </el-container>
   </div>
+  <forget ref='forgetP'></forget>
 </template>
 
 <style lang="scss" scoped>
@@ -93,15 +148,15 @@
     // 头部内容
     .header-content {
       width: 1200px;
-			margin: 0 auto;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       // 欢迎语
-			.welcome {
-				font-size: 13px;
-			}
+      .welcome {
+        font-size: 13px;
+      }
     }
   }
 
@@ -114,16 +169,16 @@
     // 登录包装
     .login-wrapped {
       width: 1200px;
-			height: 600px;
-			margin: 0 auto;
+      height: 600px;
+      margin: 0 auto;
 
       // 卡片样式
       .box-card {
         width: 350px;
-				height: 375px;
-				float: right;
-				position: relative;
-				top: 14%;
+        height: 375px;
+        float: right;
+        position: relative;
+        top: 14%;
 
         // 登录表单
         .login-form {
@@ -147,24 +202,24 @@
 
             // 快去注册
             .footer-go-register {
-							font-size: 12px;
-							margin: 12px 0;
-							display: flex;
-							justify-content: center;
+              font-size: 12px;
+              margin: 12px 0;
+              display: flex;
+              justify-content: center;
 
               .go-register {
-								font-size: 12px;
-								color: #409eff;
-								cursor: pointer;
-							}
+                font-size: 12px;
+                color: #409eff;
+                cursor: pointer;
+              }
             }
           }
 
           // 底部按钮样式
           .footer-button{
               width: 100%;
-						  display: flex;
-						  justify-content: center;
+              display: flex;
+              justify-content: center;
             }
         }
       }
@@ -181,11 +236,11 @@
       margin: 0 auto;
       display: flex;
       justify-content: center;
-			
+      
       // 底部介绍
       .title {
-				color: #666;
-			}
+        color: #666;
+      }
 
       // 底部介绍内容
       span{
@@ -196,26 +251,26 @@
   }
 
   // 表单边距
-	.el-form {
-		margin-top: 30px;
-	}
+  .el-form {
+    margin-top: 30px;
+  }
 
   // 穿透，tabs标签
-	:deep(.el-tabs__item) {
-		color: #333;
-		font-size: 18px;
-	}
+  :deep(.el-tabs__item) {
+    color: #333;
+    font-size: 18px;
+  }
 
   // 穿透，输入框高度
   :deep(.el-input__inner) {
     height: 40px;
   }
 
-	// 穿透，输入框标签字体高度
-	:deep(.el-form-item__label) {
-		height: 40px;
-		line-height: 40px;
-	}
+  // 穿透，输入框标签字体高度
+  :deep(.el-form-item__label) {
+    height: 40px;
+    line-height: 40px;
+  }
 
   // 穿透，按钮
   :deep(.el-button) {
