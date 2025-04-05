@@ -1,47 +1,47 @@
-import axios from 'axios'
+import axios, {
+  type AxiosInstance,
+  type AxiosResponse,
+  type AxiosError,
+  type InternalAxiosRequestConfig
+} from 'axios'
 import { ElMessage } from 'element-plus'
 
-const instance = axios.create({
-  // 后端url地址
-	baseURL: import.meta.env.VITE_API_BASEURL,
+// 定义基础响应数据类型
+export interface IBaseResponse<T = any> {
+  status: number
+  message: string
+  data?: T
+}
+
+// 创建带类型的Axios实例
+const instance: AxiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_BASEURL,
   // 设置超时
-	timeout: 6000,
-	headers: {
-		'Content-Type': 'application/x-www-form-urlencoded'
-	}
-});
+  timeout: 6000,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+})
 
 // 添加请求拦截器
-instance.interceptors.request.use(function(config) {
-  // 在发送请求之前做些什么
-  // 判断是否存在token，如果存在将每个页面header添加token
+instance.interceptors.request.use(function(config: InternalAxiosRequestConfig) {
   if (localStorage.getItem("token")) {
-    // console.log(localStorage.getItem("token"))
     config.headers.Authorization = localStorage.getItem("token");
   }
-	return config;
-}, function(error) {
-	// 对请求错误做些什么
-	return Promise.reject(error);
+  return config;
+}, function(error: AxiosError) {
+  return Promise.reject(error);
 });
 
 // 添加响应拦截器
-instance.interceptors.response.use(function(response) {
-  if(response.data.status||response.data.message) {
-    if(response.data.status === 0) {
-      // if(response.data.message){
-      //  ElMessage({
-      //    message: response.data.message,
-      //    type: 'success',
-      //  })
-      // }
+instance.interceptors.response.use(function(response: AxiosResponse<IBaseResponse>) {
+  if(response.data.status || response.data.message) {
+    if (response.data.status === 0) {
     } else {
-      // ElMessage.error(response.data.message)
     }
   }
-	// 对响应数据做点什么
-	return response.data
-}, function(error) {
+  return response;
+}, function(error: AxiosError<IBaseResponse>) {
   if (error && error.response) {
     switch (error.response.status) {
       case 400:
@@ -80,8 +80,7 @@ instance.interceptors.response.use(function(response) {
       default:
     }
   }
-	// 对响应错误做点什么
-	return Promise.reject(error);
+  return Promise.reject(error);
 });
 
 export default instance
