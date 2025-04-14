@@ -17,15 +17,17 @@ interface IMenuListParams {
 }
 
 // 忘记密码验证接口
-interface IVerifyData {
+export interface IVerifyData {
   account: string
   email: string
 }
 
 // 密码重置接口
-interface IResetData {
-  id: number
+export interface IResetData {
+  token: string
   newPassword: string
+  password?: string
+  rePassword?: string
 }
 
 // 注册
@@ -60,7 +62,7 @@ export const returnMenuList = (id:number) =>{
 // 忘记密码验证
 export const verify = (data:IVerifyData) => {
 	return instance({
-		url: '/user/verifyAccountAndEmail',
+		url: '/login/verifyAccountAndEmail',
 		method: 'POST',
 		data
 	})
@@ -69,7 +71,7 @@ export const verify = (data:IVerifyData) => {
 // 密码重置
 export const reset = (data:IResetData) => {
 	return instance({
-		url: '/user/changePasswordInLogin',
+		url: '/login/changePasswordInLogin',
 		method: 'POST',
 		data
 	})

@@ -1,8 +1,35 @@
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { ref, useTemplateRef } from 'vue'
   import {
     Menu as IconMenu,
   } from '@element-plus/icons-vue'
+  import { useRouter } from 'vue-router'
+  import { useUserInfoStore } from '@/stores/userinfo'
+  import { SubChangeName } from '@/tool/index'
+  import { useMessageStore } from '@/stores/message'
+  import department_message from '@/components/department_message.vue'
+
+  // 用户消息存储对象
+  const messageStore = useMessageStore()
+  // 路由
+  const router = useRouter()
+  // 用户信息存储对象
+  const userInfoStore = useUserInfoStore()
+  // 用户名称
+  const name = ref(userInfoStore.name)
+  // 退出登录
+  const goLogin = () => async () => {
+		await router.push('/login')
+    localStorage.clear()
+	}
+  // 订阅用户名
+  SubChangeName((n) => (name.value = n))
+  // 模板引用也可以被用在一个子组件上
+  const department_messageP = useTemplateRef('department_messageP')
+  // 打开部门消息
+	const openDepartmentMessage = () => {
+    department_messageP.value?.open()
+	}
 </script>
 
 <template>
@@ -17,23 +44,20 @@
             </el-icon>
             <span>首页</span>
           </el-menu-item>
-          <!-- el-menu-item index="overview" v-if="userStore.identity=='超级管理员'" -->
-          <el-menu-item index="overview">
+          <el-menu-item index="overview" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon>
               <Document />
             </el-icon>
             <span>系统概览</span>
           </el-menu-item>
-          <!-- el-sub-menu index="3" v-if="userStore.identity=='超级管理员'||userStore.identity=='用户管理员'" -->
-          <el-sub-menu index="3">
+          <el-sub-menu index="3" v-if="userInfoStore.identity==='超级管理员'||userInfoStore.identity==='用户管理员'">
             <template #title>
               <el-icon>
                 <User />
               </el-icon>
               <span>用户管理</span>
             </template>
-            <!-- el-menu-item-group title="管理员管理"  v-if="userStore.identity=='超级管理员'" -->
-            <el-menu-item-group title="管理员管理">
+            <el-menu-item-group title="管理员管理"  v-if="userInfoStore.identity==='超级管理员'">
               <el-menu-item index="product_manage" >产品管理员</el-menu-item>
               <el-menu-item index="users_manage" >用户管理员</el-menu-item>
               <el-menu-item index="message_manage" >消息管理员</el-menu-item>
@@ -42,8 +66,7 @@
               <el-menu-item index="user_list" >用户列表</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <!-- el-sub-menu index="4" v-if="userStore.identity=='超级管理员'||userStore.identity=='产品管理员'||userStore.identity=='用户'" -->
-          <el-sub-menu index="4">
+          <el-sub-menu index="4" v-if="userInfoStore.identity==='超级管理员'||userInfoStore.identity==='产品管理员'||userInfoStore.identity==='用户'">
             <template #title>
               <el-icon>
                 <TakeawayBox />
@@ -57,8 +80,7 @@
               <el-menu-item index="out_product_manage_list">出库列表</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <!--el-sub-menu index="5" v-if="userStore.identity=='消息管理员'||userStore.identity=='超级管理员'"-->
-          <el-sub-menu index="5">
+          <el-sub-menu index="5" v-if="userInfoStore.identity==='消息管理员'||userInfoStore.identity==='超级管理员'">
             <template #title>
               <el-icon>
                 <ChatSquare />
@@ -72,18 +94,15 @@
               <el-menu-item index="recycle">回收站</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <!-- el-menu-item index="file" v-if="userStore.identity=='超级管理员'" -->
-          <el-menu-item index="file">
+          <el-menu-item index="file" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon><icon-menu /></el-icon>
             <span>合同管理</span>
           </el-menu-item>
-          <!-- el-menu-item index="operation_log" v-if="userStore.identity=='超级管理员'" -->
-          <el-menu-item index="operation_log">
+          <el-menu-item index="operation_log" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon><icon-menu /></el-icon>
             <span>操作日志</span>
           </el-menu-item>
-          <!-- el-menu-item index="login_log" v-if="userStore.identity=='超级管理员'" -->
-          <el-menu-item index="login_log">
+          <el-menu-item index="login_log" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon><icon-menu /></el-icon>
             <span>登录日志</span>
           </el-menu-item>
@@ -99,13 +118,13 @@
         <el-header>
           <span class="header-left-content">尊敬的 {{name}} 欢迎您登录本系统</span>
           <div class="header-right-content">
-            <el-badge :is-dot='msgStore.read_list.length> 0' class="item"
+            <el-badge :is-dot='messageStore.read_list.length> 0' class="item"
               @click="openDepartmentMessage">
               <el-icon :size="20" class="message">
                 <Message />
               </el-icon>
             </el-badge>
-            <el-avatar :size="24" :src="userStore.imageUrl" />
+            <el-avatar :size="24" :src="userInfoStore.imageUrl" />
             <el-dropdown>
               <span class="el-dropdown-link">
                 设置
@@ -126,6 +145,7 @@
       </el-container>
     </el-container>
   </div>
+  <department_message ref="department_messageP"></department_message>
 </template>
 
 <style lang="scss" scoped>

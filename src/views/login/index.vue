@@ -6,13 +6,17 @@
   } from '@/api/login'
   import { ElMessage } from 'element-plus'
   import { useRouter } from 'vue-router'
+  import { useUserInfoStore } from '@/stores/userinfo'
+  import { useMessageStore } from '@/stores/message'
 
+  // 用户消息存储对象
+  const messageStore = useMessageStore()
+  // 用户信息存储对象
+  const userInfoStore = useUserInfoStore()
   // 路由实例
   const router = useRouter()
-
   // 登录注册切换
   const activeName = ref('first')
-
   // 登录表单数据
   const loginData :ILoginData = reactive<ILoginData>({
     account: '',
@@ -24,7 +28,6 @@
     password: '',
     rePassword: '',
   })
-
   // 登录
   const Login = async () => {
     const res = await login(loginData)
@@ -32,25 +35,13 @@
       ElMessage.error(res.data.message)
       return
     }
-
     ElMessage.success(res.data.message)
-    // const { id, token, name, account, email, department } = res.data
-    const { token } = res.data.data
-    localStorage.setItem('token', token)
-    router.push('/home')
-    
-    // localStorage.setItem('id', id)
-    // const routerList = await returnMenuList(id) as any
-    // menuStore.setRouter(routerList)
-    // localStorage.setItem('token', token)
-    // localStorage.setItem('name', name)
-    // localStorage.setItem('department', department)
-    // await loginLog(account,name,email)
-    // await store.userInfo(id)
-    // // 跳转
-    // router.push('/home')
+    const { id, token } = res.data.data
+    localStorage.setItem("token", token)
+    await userInfoStore.userInfo(id)
+    await messageStore.returnReadList()
+    router.push('/menu')
   }
-
   // 注册
   const Register = async () => {
     if (registerData.password !== registerData.rePassword) {
@@ -66,7 +57,6 @@
     ElMessage.success(res.data.message)
     activeName.value = 'first'
   }
-
   // 模板引用也可以被用在一个子组件上
   const forgetP = useTemplateRef('forgetP')
   // 打开忘记密码弹窗
@@ -89,7 +79,7 @@
           <el-card class="box-card">
             <el-tabs v-model="activeName" :stretch="true">
               <el-tab-pane label="登录" name="first">
-                <el-form class="login-form" label-width="auto">
+                <el-form v-if="activeName==='first'" class="login-form" label-width="auto">
                   <el-form-item label="账号">
                     <el-input v-model="loginData.account" placeholder="请输入账号" />
                   </el-form-item>
@@ -110,7 +100,7 @@
                 </el-form>
               </el-tab-pane>
               <el-tab-pane label="注册" name="second">
-                <el-form class="login-form " label-width="auto">
+                <el-form v-if="activeName==='second'" class="login-form " label-width="auto">
                   <el-form-item label="账号">
                     <el-input v-model="registerData.account" placeholder="账号长度6-12位" />
                   </el-form-item>
@@ -139,7 +129,7 @@
       </el-footer>
     </el-container>
   </div>
-  <forget ref='forgetP'></forget>
+  <forget ref="forgetP"></forget>
 </template>
 
 <style lang="scss" scoped>

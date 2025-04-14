@@ -15,8 +15,20 @@ const router = createRouter({
     {
       name: 'menu',
       path: '/menu',
-      component: () => import('@/views/menu/index.vue')
-    }
+      component: () => import('@/views/menu/index.vue'),
+      children: [
+        {
+          name: 'home',
+          path: '/home',
+          component: () => import('@/views/home/index.vue')
+        },
+        {
+          name: 'set',
+          path: '/set',
+          component: () => import('@/views/menu_set/index.vue')
+        }
+      ]
+    },
   ],
 })
 

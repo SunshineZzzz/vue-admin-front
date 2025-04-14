@@ -45,37 +45,37 @@ instance.interceptors.response.use(function(response: AxiosResponse<IBaseRespons
   if (error && error.response) {
     switch (error.response.status) {
       case 400:
-        ElMessage.error('请求错误')
+        ElMessage.error("请求错误")
         break
       case 401:
-        ElMessage.error('未授权，请登录')
+        ElMessage.error("未授权，请登录")
         break
       case 403:
-        ElMessage.error('拒绝访问')
+        ElMessage.error("拒绝访问")
         break
       case 404:
         ElMessage.error(`请求地址出错: ${error.response.config.url}`)
         break
       case 408:
-        ElMessage.error('请求超时')
+        ElMessage.error("请求超时")
         break
       case 500:
-        ElMessage.error('服务器内部错误')
+        ElMessage.error("服务器内部错误")
         break
       case 501:
-        ElMessage.error('服务未实现')
+        ElMessage.error("服务未实现")
         break
       case 502:
-        ElMessage.error('网关错误')
+        ElMessage.error("网关错误")
         break
       case 503:
-        ElMessage.error('服务不可用')
+        ElMessage.error("服务不可用")
         break
       case 504:
-        ElMessage.error('网关超时')
+        ElMessage.error("网关超时")
         break
       case 505:
-        ElMessage.error('HTTP版本不受支持')
+        ElMessage.error("HTTP版本不受支持")
         break
       default:
     }
