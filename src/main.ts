@@ -16,6 +16,9 @@ import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 // svg图标
 import 'virtual:svg-icons-register'
+// 引入全局样式
+import '@/assets/css/table_common.scss'
+import '@/assets/css/wrap_common.scss'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

@@ -26,6 +26,16 @@ const router = createRouter({
           name: 'set',
           path: '/set',
           component: () => import('@/views/menu_set/index.vue')
+        },
+        {
+          name: 'overview',
+          path: '/overview',
+          component: () => import('@/views/overview/index.vue')
+        },
+        {
+          name: 'user_list',
+          path: '/user_list',
+          component: () => import('@/views/user_manager/user_list/index.vue')
         }
       ]
     },

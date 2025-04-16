@@ -24,7 +24,7 @@ export const useMessageStore = defineStore('messageinfor', () => {
       return
     }
     let currentPage = 1
-    const pageSize = 1
+    const pageSize = 10
     for (;;) {
       const start = (currentPage - 1) * pageSize
       const end = currentPage * pageSize

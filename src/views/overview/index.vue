@@ -1,18 +1,19 @@
 <script lang='ts' setup>
-  import { onMounted, reactive, ref, } from 'vue'
+  import { onMounted, ref, } from 'vue'
   import breadCrumb from '@/components/bread_crumb.vue'
   import SvgIcon from '@/components/svgicon.vue'
   import * as echarts from 'echarts';
   import { useRouter } from 'vue-router'
   import { useUserInfoStore } from '@/stores/userinfo'
   import {
-    getCategoryAndNumber,
-    getAdminAndNumber,
+    getCategoryAndTotalPrice,
+    getIdentityAndNumber,
     getLevelAndNumber,
     getDayAndNumber
   } from '@/api/overview'
-
-  // 
+  import { ElMessage } from 'element-plus'
+  
+  // 挂在后需要做的事情
   onMounted(() => {
     manageUser()
     productCategoryBar()
@@ -35,14 +36,23 @@
   const manageUser = async () => {
     // 通过类名初始化echars
     const mu = echarts.init(document.querySelector('.manage-user') as HTMLElement)
+    // 数据
+    let data:any = []
+    // 加载
     mu.showLoading()
-    let data = await getAdminAndNumber() as any
+    // 获取数据
+    const res = await getIdentityAndNumber()
+    if (res.data.status !== 0) {
+      ElMessage.error(res.data.message)
+    } else {
+      data = res.data.data.rstArr
+    }
+    // 加载完毕
     mu.hideLoading()
     // 设置基本的参数
     mu.setOption({
       title: {
         text: '管理与用户对比图',
-        // subtext: 'Fake Data',
         left: 'center'
       },
       tooltip: {
@@ -54,10 +64,9 @@
         padding: [20, 20, 20, 20]
       },
       series: [{
-        // name: 'Access From',
         type: 'pie',
         radius: '65%',
-        data: data.data,
+        data: data,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -73,14 +82,18 @@
     })
   }
 
-
-  // 产品类别图
+  // 产品类别库存总价图
   const productCategoryBar = async () => {
     const pcb = echarts.init(document.querySelector('.product-category-bar') as HTMLElement)
+    let data:any = {category:[],price:[]}
     pcb.showLoading()
-    let data = await getCategoryAndNumber() as any
+    const res = await getCategoryAndTotalPrice()
+    if (res.data.status !== 0) {
+      ElMessage.error(res.data.message)
+    } else {
+      data = res.data.data.rstArr
+    }
     pcb.hideLoading()
-    // document.querySelector('.product-category-bar').setAttribute('_echarts_instance_', '')
     pcb.setOption({
       title: {
         text: "产品类别库存总价图",
@@ -94,18 +107,19 @@
       },
       xAxis: {
         type: 'category',
-        // 食品类，服装类，鞋帽类，日用品类，家具类，家用电器类，纺织品类，五金类
         data: data.category
       },
       yAxis: {
         type: 'value'
       },
-      series: [{
-        data: data.price,
-        type: 'bar',
-        barWidth: 40,
-        colorBy: "data"
-      }, ]
+      series: [
+        {
+          data: data.price,
+          type: 'bar',
+          barWidth: 40,
+          colorBy: "data"
+        }
+      ]
     })
     window.addEventListener('resize', function() {
       pcb.resize()
@@ -116,9 +130,14 @@
   const massageLevel = async () => {
     const ml = echarts.init(document.querySelector('.massage-level') as HTMLElement)
     ml.showLoading()
-    let data = await getLevelAndNumber() as any
+    let data:any = []
+    const res = await getLevelAndNumber()
+    if (res.data.status !== 0) {
+      ElMessage.error(res.data.message)
+    } else {
+      data = res.data.data.rstArr
+    }
     ml.hideLoading()
-    // document.querySelector('.massage-level').setAttribute('_echarts_instance_', '')
     ml.setOption({
       title: {
         text: "公告等级分布图",
@@ -135,7 +154,6 @@
         left: 'center'
       },
       series: [{
-        // name: 'Access From',
         type: 'pie',
         radius: ['35%', '65%'],
         avoidLabelOverlap: false,
@@ -158,7 +176,7 @@
         labelLine: {
           show: false
         },
-        data: data.data,
+        data: data,
       }]
     })
     window.addEventListener('resize', function() {
@@ -166,14 +184,20 @@
     })
   }
 
-  // 消息每日总量图
+  // 每日登录人数图
   const massageAllDay = async () => {
-
     const mad = echarts.init(document.querySelector('.login-week') as HTMLElement)
     mad.showLoading()
-    let data = await getDayAndNumber() as any
+    let data = {week:[], number:[]}
+    const res = await getDayAndNumber({
+      rangeDay:7
+    })
+    if (res.data.status !== 0) {
+      ElMessage.error(res.data.message)
+    } else {
+      data = res.data.data.rstArr
+    }
     mad.hideLoading()
-    // document.querySelector('.login-week').setAttribute('_echarts_instance_', '')
     mad.setOption({
       title: {
         text: "每日登录人数图",

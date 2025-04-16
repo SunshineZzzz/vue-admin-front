@@ -30,6 +30,11 @@ export interface IChangeEmailData {
   email: string
 }
 
+// 获取身份人数接口
+export interface IGetIdentityNumberData {
+  identity: string
+}
+
 // 创建管理员接口
 export interface ICreateAdminData {
   account: string
@@ -63,6 +68,7 @@ export interface ISearchUser {
 
 // 搜索部门接口
 export interface ISearcDeartment {
+  identity: string
   department: string
 }
 
@@ -143,11 +149,12 @@ export const createAdmin = (data:ICreateAdminData) => {
   })
 }
 
-// 获取管理员列表
-export const getAdminList = () => {
+// 获取对应身份总数
+export const getIdentityNumber = (data:IGetIdentityNumberData) => {
   return instance({
-    url: '/user/getAdminList',
+    url: '/user/getIdentityNumber',
     method: 'POST',
+    data,
   })
 }
 

@@ -29,6 +29,7 @@
     await messageStore.getMessageList()
     dialog.value = true
   }
+  // 暴露子组件的内部属性或方法给父组件
   defineExpose({
     open
   })

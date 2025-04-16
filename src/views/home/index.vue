@@ -16,7 +16,7 @@
 	const companyData = ref()
 	// 系统消息
 	const systemData = ref()
-
+  // 获取消息
 	const getMessageList = async () =>{
     let data:IBatchMessageData = {
       category: '公司公告',
