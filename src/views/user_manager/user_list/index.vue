@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { ref, useTemplateRef } from 'vue'
+  import { ref, useTemplateRef, onMounted } from 'vue'
   import { Search } from '@element-plus/icons-vue'
   import breadCrumb from '@/components/bread_crumb.vue'
   import userinfo from '../components/user_info.vue'
@@ -7,6 +7,7 @@
   import { FormatSecDateYMD } from '@/tool/index'
   import { useTable } from '@/hooks'
   const {
+    initTable,
     sAccount,
     sDepartment,
     paginationData,
@@ -23,6 +24,10 @@
   } from '@/api/userinfo.js'
   import { ElMessage } from 'element-plus'
 
+  // 挂架完成就搞数据 
+  onMounted(async () => {
+    await initTable()
+  })
   // 面包屑
   const breadcrumb = ref()
   // 面包屑参数
@@ -47,7 +52,7 @@
       return
     }
     ElMessage.success(res.data.message)
-    paginationData.currentPage = 1
+    await currentChange(paginationData.currentPage)    
   }
   // 解冻用户
   const hotUserById = async (id : number) => {
@@ -57,7 +62,11 @@
       return
     }
     ElMessage.success(res.data.message)
-    paginationData.currentPage = 1
+    await currentChange(paginationData.currentPage) 
+  }
+  // 分页
+  function pageCurrentChange(page: number) {
+    paginationData.currentPage = page
   }
 	// 模板引用也可以被用在一个子组件上
   const userinfoP = useTemplateRef('userinfoP')
@@ -140,7 +149,7 @@
         <!-- 底部 -->
         <div class="table-footer">
           <el-pagination :page-size="1" :current-page="paginationData.currentPage" :pager-count="7"
-            :total="identifyTotal" :page-count="paginationData.pageCount" @current-change="currentChange"
+            :total="identifyTotal" :page-count="paginationData.pageCount" @current-change="pageCurrentChange"
             layout="prev, pager, next" />
         </div>
       </div>

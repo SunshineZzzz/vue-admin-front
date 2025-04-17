@@ -43,7 +43,7 @@
   const dialogUserVisible = ref(false)
   // 打开编辑管理员的弹窗
   const open = (data:ISimpleUserInfoData) => {
-    userData = data
+    Object.assign(userData, data)
     dialogUserVisible.value = true
   }
   // 暴露子组件的内部属性或方法给父组件
@@ -66,7 +66,7 @@
         <div>邮箱：{{userData.email}}</div>
         <div>状态：
           <span v-if="userData.status===0">正常</span>
-          <span v-else>冻结</span>
+          <span v-else :style="{color:'red'}">冻结</span>
         </div>
       </el-main>
     </el-container>

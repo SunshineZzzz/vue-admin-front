@@ -57,7 +57,6 @@ export const useTable = (identity:string) => {
   }
   // 监听换页
   const currentChange = async (value:number) => {
-    paginationData.currentPage = value
     const res = await batchGetUser({identity:identity, offset:(paginationData.currentPage-1), limit:CTablePagingSize})
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
@@ -68,6 +67,7 @@ export const useTable = (identity:string) => {
   // 通过账号搜索用户
   const searchUserByAccount = async () => {
     if (!sAccount.value) {
+      currentChange(paginationData.currentPage)
       return
     }
     const res = await searchUser({account:sAccount.value, identity:identity})
@@ -80,6 +80,7 @@ export const useTable = (identity:string) => {
   // 通过部门进行搜索
   const searchForDepartment = async () => {
     if (!sDepartment.value) {
+      currentChange(paginationData.currentPage)
       return
     }
     const res = await searchDepartment({department:sDepartment.value, identity:identity})
@@ -110,31 +111,24 @@ export const useTable = (identity:string) => {
     }
     // 删除
     if (id == UserDialogOffType.Delete) {
+      await returnIndetityListLength()
       await getFirstPageList()
     }
     // 升职
     if (id == UserDialogOffType.Promote) {
-      await currentChange(current)
+      await returnIndetityListLength()
+      await getFirstPageList()
     }
   })
-  // 页面一加载就加载第一页数据
-  watch (
-    paginationData,
-    () => {
-      // 先返回身份列表长度
-      returnIndetityListLength()
-      // 获取第一页
-      getFirstPageList()
-      // 获取所有部门
-      getAllDepartment()
-    },
-    {
-      // 表示页面一加载就立即执行一次watcher，不需要等到数据发生变化
-      immediate:true, 
-      // 表示深度监听，即如果paginationData是个对象，里面某个字段变化，也会触发 watcher
-      // deep:true
-    }
-  )
+  // 初始化
+  const initTable = async () => {
+    // 先返回身份列表长度
+    await returnIndetityListLength()
+    // 获取第一页
+    await getFirstPageList()
+    // 获取所有部门
+    await getAllDepartment()
+  }
   // 页码发生变化，触发
   watch (
     // 只监听paginationData对象中的currentPage字段
@@ -151,6 +145,7 @@ export const useTable = (identity:string) => {
   //   },
   // )
   return {
+    initTable,
     sAccount,
     sDepartment,
     paginationData,
