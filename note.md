@@ -1318,7 +1318,9 @@ app.mount('#app')
     
 15. style-loader, 将 CSS 代码以 <style> 标签的形式，注入到 HTML 页面中。
 
-16. 杂项
+16. wangeditor/editor，开源 Web 富文本编辑器，开箱即用，配置简单 
+
+17. 杂项
 	- Promise, 在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了
 	```JS
 									┌──────────────────┐
