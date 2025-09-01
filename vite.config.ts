@@ -1,3 +1,5 @@
+// vite配置文件
+
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -7,6 +9,7 @@ import { resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Vite 插件s
   plugins: [
     vue(),
     vueDevTools(),
@@ -17,6 +20,7 @@ export default defineConfig({
       symbolId: 'icon-[dir]-[name]',      
     })
   ],
+  // 开发服务器
   server: {
 	  // 默认启动时的端口号 
 	  port: 8080,
@@ -25,8 +29,10 @@ export default defineConfig({
 	  // 允许跨域
 	  cors: true,
   },
+  // 模块的路径解析
   resolve: {
     alias: {
+      // @ 被设置为 src 目录的别名
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },

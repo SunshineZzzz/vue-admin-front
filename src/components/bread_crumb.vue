@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+  // 面包屑组件
 	import SvgIcon from '@/components/svgicon.vue'
+  // 接收父组件传递过来的数据
   const props = defineProps<{
     items: Array<{ name: string; path?: string }>
   }>()

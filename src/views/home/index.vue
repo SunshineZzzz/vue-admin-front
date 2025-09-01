@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 首页组件
   import { ref, useTemplateRef } from 'vue'
   import breadCrumb from '@/components/bread_crumb.vue'
   import introduce from './components/introduce.vue'
@@ -48,7 +49,7 @@
       ElMessage.error(response.data.message)
       return
     }
-    (<string[]>response.data.data.swiperArr).forEach((item: string) => {
+    (response.data.data.swiperArr as string[]).forEach((item: string) => {
       imageUrl.value.push(GetImageUrl(item))
     })
 	}
@@ -208,26 +209,42 @@
         height: 200px;
         padding: 8px;
         cursor: pointer;
+        // 关键：确保超出内容被裁剪
+        overflow: hidden;
+        box-sizing: border-box;
+
+        // 公司信息区域标题
+        span {
+          border-bottom: 1px solid #409eff;
+          font-size: 14px;
+        }
+
+        // 公司信息区域内容
+				.company-introduce {
+          // 让段落内的所有行内元素（如图片）居中
+          text-align: center;
+          text-indent: 24px;
+          font-size: 14px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          line-clamp: 2;
+          -webkit-line-clamp: 3;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          
+          :deep(img) {
+            // 关键：限制图片最大宽度为父容器的100%，防止横向溢出
+            max-width: 100%; 
+            // 保持图片的宽高比
+            height: auto;
+            // 将图片作为块级元素处理，便于居中
+            display: block;
+            // 让块级图片水平居中
+            margin: 0 auto; 
+          }
+				}
       }
       
-      // 公司信息区域标题
-      span {
-        border-bottom: 1px solid #409eff;
-        font-size: 14px;
-      }
-
-      // 公司信息区域内容
-      .company-introduce {
-        text-indent: 24px;
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        line-clamp: 2;
-        -webkit-line-clamp: 3;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-      }
-
       // 公司信息区域悬停
       .company-message-area:hover {
         cursor: pointer;

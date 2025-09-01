@@ -1316,11 +1316,16 @@ app.mount('#app')
 
 14. sass-loader，加载 Sass/SCSS 文件并将他们编译为 CSS。
     
-15. style-loader, 将 CSS 代码以 <style> 标签的形式，注入到 HTML 页面中。
+15. style-loader, 将 CSS 代码以 ```<style>``` 标签的形式，注入到 HTML 页面中。
 
-16. wangeditor/editor，开源 Web 富文本编辑器，开箱即用，配置简单 
+16. wangeditor/editor，开源 Web 富文本编辑器，开箱即用，配置简单 123
 
-17. 杂项
+17. RESTful，Representational State Transfer
+	- 每一个URI代表一种资源
+	- 客户端和服务器之间，传递这种资源的某种表现层
+	- 户端通过四个HTTP动词，对服务器端资源进行操作，实现"表现层状态转化"
+
+18. 杂项
 	- Promise, 在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了
 	```JS
 									┌──────────────────┐

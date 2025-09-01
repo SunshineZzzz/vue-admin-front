@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 富文本编辑器组件
   import '@wangeditor/editor/dist/css/style.css'
   import {
     onBeforeUnmount, ref, shallowRef,
@@ -102,7 +103,7 @@
   // 组件销毁时，也及时销毁编辑器
   onBeforeUnmount(() => {
     const editor = editorRef.value
-    if (editor == null) return
+    if (!editor) return
     editor.destroy()
     valueHtml.value = ''
   })
@@ -117,7 +118,7 @@
   const state = reactive({
     dialogFormVisible: false,
   });
-  // 取消删除
+  // 取消
   const cancel = () => {
     state.dialogFormVisible = false;
     valueHtml.value = ''

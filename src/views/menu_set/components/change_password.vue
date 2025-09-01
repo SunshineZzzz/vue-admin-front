@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 修改密码组件
   import { reactive, ref } from 'vue'
   import { type IChangePasswordData, changePassword } from '@/api/userinfo.js'
   import { ElMessage } from 'element-plus'

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 系统设值组件
   import breadCrumb from '@/components/bread_crumb.vue'
   import {
     onMounted,
@@ -8,7 +9,7 @@
     toRaw,
     useTemplateRef
   } from 'vue'
-  import { ElMessage, ElInput } from 'element-plus'
+  import { ElMessage } from 'element-plus'
   import { Plus } from '@element-plus/icons-vue'
   import type { UploadProps } from 'element-plus'
   import { useUserInfoStore } from '@/stores/userinfo'

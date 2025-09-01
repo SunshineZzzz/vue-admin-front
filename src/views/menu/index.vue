@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 菜单组件
   import { ref, useTemplateRef } from 'vue'
   import {
     Menu as IconMenu,
@@ -18,7 +19,7 @@
   // 用户名称
   const name = ref(userInfoStore.name)
   // 退出登录
-  const goLogin = () => async () => {
+  const goLogin = async () => {
 		await router.push('/login')
     localStorage.clear()
 	}
@@ -36,6 +37,7 @@
   <div class="common-layout">
     <el-container>
       <el-aside width="200px">
+        <!--启用vue-router模式,  启用该模式会在激活导航时以index作为path进行路由跳转-->
         <el-menu class="el-menu-vertical-demo" router>
           <div class="title">通用后台管理系统</div>
           <el-menu-item index="home">
@@ -95,15 +97,21 @@
             </el-menu-item-group>
           </el-sub-menu>
           <el-menu-item index="file" v-if="userInfoStore.identity==='超级管理员'">
-            <el-icon><icon-menu /></el-icon>
+            <el-icon>
+              <IconMenu />
+            </el-icon>
             <span>合同管理</span>
           </el-menu-item>
           <el-menu-item index="operation_log" v-if="userInfoStore.identity==='超级管理员'">
-            <el-icon><icon-menu /></el-icon>
+            <el-icon>
+              <IconMenu />
+            </el-icon>
             <span>操作日志</span>
           </el-menu-item>
           <el-menu-item index="login_log" v-if="userInfoStore.identity==='超级管理员'">
-            <el-icon><icon-menu /></el-icon>
+            <el-icon>
+              <IconMenu />
+            </el-icon>
             <span>登录日志</span>
           </el-menu-item>
           <el-menu-item index="set">

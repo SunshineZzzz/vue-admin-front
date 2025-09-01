@@ -1,3 +1,4 @@
+// Node.js环境，配置​​Node.js环境​​下的代码
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "include": [

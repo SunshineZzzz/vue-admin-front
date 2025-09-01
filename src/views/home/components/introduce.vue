@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 公司介绍组件
   import {
       ref, reactive, computed
   } from 'vue'

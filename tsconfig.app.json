@@ -1,3 +1,4 @@
+// 浏览器环境，配置前端应用源码(如组件、页面逻辑)的编译规则
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],

@@ -12,9 +12,9 @@ export interface IRegisterData extends ILoginData {
 }
 
 // 菜单列表接口
-interface IMenuListParams {
-  id: number
-}
+// interface IMenuListParams {
+//   id: number
+// }
 
 // 忘记密码验证接口
 export interface IVerifyData {
@@ -49,15 +49,15 @@ export const login = (data:ILoginData) => {
 }
 
 // 菜单列表
-export const returnMenuList = (id:number) =>{
-  return instance({
-    url: '/api/returnMenuList',
-    method: 'POST',
-    data: {
-      id
-    }
-  })
-}
+// export const returnMenuList = (id:number) =>{
+//   return instance({
+//     url: '/api/returnMenuList',
+//     method: 'POST',
+//     data: {
+//       id
+//     }
+//   })
+// }
 
 // 忘记密码验证
 export const verify = (data:IVerifyData) => {

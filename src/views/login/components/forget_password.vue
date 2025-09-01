@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 忘记密码组件
   import { reactive, ref } from 'vue'
   import type { FormProps } from 'element-plus'
   import { type IVerifyData, type IResetData, verify, reset } from '@/api/login'

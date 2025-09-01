@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+  // 登录页面组件
   import { ref, reactive, useTemplateRef } from 'vue'
   import forget from './components/forget_password.vue'
   import {
-    type ILoginData, type IRegisterData, register, login, returnMenuList
+    type ILoginData, type IRegisterData, register, login
   } from '@/api/login'
   import { ElMessage } from 'element-plus'
   import { useRouter } from 'vue-router'
@@ -94,7 +95,7 @@
                       <el-button type="primary" @click="Login">登录</el-button>
                     </div>
                     <div class="footer-go-register">
-                      还没有账号？<span class="go-register">马上注册</span>
+                      还没有账号？<span class="go-register" @click="activeName = 'second'">马上注册</span>
                     </div>
                   </div>
                 </el-form>
