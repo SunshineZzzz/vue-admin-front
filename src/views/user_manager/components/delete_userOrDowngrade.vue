@@ -1,18 +1,5 @@
-<template>
-  <el-dialog v-model="dialogFormVisible" title='删除操作' width="30%" center>
-    <span v-if="!isUser">是否去掉此用户的{{ simpleUserInfo!.identity }}？删除后此用户将重新展现在用户列表中</span>
-    <span v-else>请慎重操作，删除后此用户将永久失去登录资格</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button type="primary" @click="deleteOrDowngrade">
-          确定
-        </el-button>
-      </span>
-    </template>
-  </el-dialog>
-</template>
-
 <script lang="ts" setup>
+  // 删除或者降级用户组件
   import { ref } from 'vue'
   import { changeIdentity, deleteUser } from '@/api/userinfo'
   import { ElMessage } from 'element-plus'
@@ -30,7 +17,7 @@
   const isUser = ref<boolean>(true)
   // 删除或者降级
   const deleteOrDowngrade = async () => {
-    if (!isUser) {
+    if (!isUser.value) {
       const res = await changeIdentity({id:simpleUserInfo.value!.id, identity:'用户'})
       if (res.data.status !== 0) {
         ElMessage.error(res.data.message)
@@ -59,7 +46,8 @@
     if (simpleUserInfo.value.identity === '超级管理员' || 
     simpleUserInfo.value.identity === '用户管理员' || 
     simpleUserInfo.value.identity === '产品管理员' || 
-    simpleUserInfo.value.identity === '部门管理员') {
+    simpleUserInfo.value.identity === '部门管理员' ||
+    simpleUserInfo.value.identity === '消息管理员') {
       isUser.value = false
     }
     dialogFormVisible.value = true
@@ -69,6 +57,20 @@
     open
   })
 </script>
+
+<template>
+  <el-dialog v-model="dialogFormVisible" title='删除操作' width="30%" center>
+    <span v-if="!isUser">是否去掉此用户的{{ simpleUserInfo!.identity }}？删除后此用户将重新展现在用户列表中</span>
+    <span v-else>请慎重操作，删除后此用户将永久失去登录资格</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="deleteOrDowngrade">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+</template>
 
 <style lang="scss" scoped>
 </style>

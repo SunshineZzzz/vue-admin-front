@@ -33,10 +33,25 @@ const router = createRouter({
           component: () => import('@/views/overview/index.vue')
         },
         {
+          name: 'users_manage',
+          path: '/users_manage',
+          component: () => import('@/views/user_manager/users_manage/index.vue')
+        },
+        {
           name: 'user_list',
           path: '/user_list',
           component: () => import('@/views/user_manager/user_list/index.vue')
-        }
+        },
+        {
+          name: 'message_manage',
+          path: '/message_manage',
+          component: () => import('@/views/user_manager/message_manage/index.vue')
+        },
+        {
+          name: 'product_manage',
+          path: '/product_manage',
+          component: () => import('@/views/user_manager/product_manage/index.vue')
+        },
       ]
     },
   ],

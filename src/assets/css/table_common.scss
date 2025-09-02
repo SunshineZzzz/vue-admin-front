@@ -3,8 +3,11 @@
   padding: 8px;
   height: calc(100vh - 101px);
   background: #f5f5f5;
+  // 弹性布局
   display: flex;
+  // 定义主轴方向垂直排列
   flex-direction: column;
+  // 收尾贴合容器项目间隔相等
   justify-content: space-between;
 
   .table-top {

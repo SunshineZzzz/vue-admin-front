@@ -33,6 +33,16 @@ export enum UserDialogOffType {
   Delete,
 }
 
+// 创建管理员类型
+export enum CreateAdminType {
+  // 创建产品管理员
+  createProductAdmin = 1,
+  // 创建用户管理员
+  createUserAdmin,
+  // 创建消息管理员
+  createMessageAdmin,
+}
+
 // 表分页大小
 export const CTablePagingSize = 1
 // 身份对话框

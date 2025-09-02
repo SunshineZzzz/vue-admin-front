@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  // 用户信息组件
   import { reactive, ref, useTemplateRef } from 'vue'
   import { type ISimpleUserInfoData } from '@/define/index'
   import promote from './promote.vue'

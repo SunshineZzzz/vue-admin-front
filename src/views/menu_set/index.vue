@@ -427,8 +427,8 @@
             <span>用户性别：</span>
             <div class="account-info-content">
               <el-select v-model="userData.sex" class="m-2" style="width: 240px">
-                <el-option label="男" value="1" />
-                <el-option label="女" value="2" />
+                <el-option label="男" :value="1" />
+                <el-option label="女" :value="2" />
               </el-select>
             </div>
             <div class="account-save-button">

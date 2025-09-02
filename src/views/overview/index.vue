@@ -1,5 +1,6 @@
 <script lang='ts' setup>
-  import { onMounted, ref, } from 'vue'
+  // 系统概览组件
+  import { onMounted, ref } from 'vue'
   import breadCrumb from '@/components/bread_crumb.vue'
   import SvgIcon from '@/components/svgicon.vue'
   import * as echarts from 'echarts';
@@ -37,7 +38,7 @@
     // 通过类名初始化echars
     const mu = echarts.init(document.querySelector('.manage-user') as HTMLElement)
     // 数据
-    let data:any = []
+    let data = []
     // 加载
     mu.showLoading()
     // 获取数据
@@ -45,6 +46,7 @@
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
     } else {
+      // [{name: '超级管理员', value: '1'}, ...]
       data = res.data.data.rstArr
     }
     // 加载完毕
@@ -85,7 +87,7 @@
   // 产品类别库存总价图
   const productCategoryBar = async () => {
     const pcb = echarts.init(document.querySelector('.product-category-bar') as HTMLElement)
-    let data:any = {category:[],price:[]}
+    let data = {category:[],price:[]}
     pcb.showLoading()
     const res = await getCategoryAndTotalPrice()
     if (res.data.status !== 0) {
@@ -130,7 +132,7 @@
   const massageLevel = async () => {
     const ml = echarts.init(document.querySelector('.massage-level') as HTMLElement)
     ml.showLoading()
-    let data:any = []
+    let data = []
     const res = await getLevelAndNumber()
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
@@ -195,6 +197,7 @@
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
     } else {
+      // {week:['9', '18'], number:['2025-08-31', '2025-09-01']}
       data = res.data.data.rstArr
     }
     mad.hideLoading()

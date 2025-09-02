@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+  // 用户列表组件
   import { ref, useTemplateRef, onMounted } from 'vue'
   import { Search } from '@element-plus/icons-vue'
   import breadCrumb from '@/components/bread_crumb.vue'
   import userinfo from '../components/user_info.vue'
   import { type ISimpleUserInfoData } from '@/define/index'
-  import { FormatSecDateYMD } from '@/tool/index'
+  import { FormatSecDateYMD, SexFormatter } from '@/tool/index'
   import { useTable } from '@/hooks'
   const {
     initTable,
@@ -19,9 +20,7 @@
     searchForDepartment,
     clearInput
   } = useTable('用户')
-  import {
-     getBanList, banUser, hotUser
-  } from '@/api/userinfo.js'
+  import { getBanList, banUser, hotUser } from '@/api/userinfo'
   import { ElMessage } from 'element-plus'
 
   // 挂架完成就搞数据 
@@ -113,7 +112,7 @@
           <el-table-column type="index" width="50" />
           <el-table-column prop="account" label="账号" />
           <el-table-column prop="name" label="姓名" />
-          <el-table-column prop="sex" label="性别" />
+          <el-table-column prop="sex" label="性别" :formatter="SexFormatter" />
           <el-table-column prop="department" label="部门" />
           <el-table-column prop="email" label="邮箱" />
           <el-table-column prop="status" label="状态">
@@ -135,7 +134,7 @@
               <div>{{FormatSecDateYMD(row.update_time)}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="200">
+          <el-table-column label="操作">
             <template #default="{row}">
               <div>
                 <el-button type="primary" @click="banUserById(row.id)"

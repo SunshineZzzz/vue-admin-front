@@ -1,4 +1,5 @@
-import { 
+// 身份用户列表通用函数
+import {
   searchUser, getIdentityNumber, 
   batchGetUser, searchDepartment,
 } from '@/api/userinfo'
@@ -38,7 +39,7 @@ export const useTable = (identity:string) => {
   }
   // 返回身份列表长度
   const returnIndetityListLength = async () => {
-    const res = await getIdentityNumber({identity})
+    const res = await getIdentityNumber({identity:identity})
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
       return
@@ -48,6 +49,10 @@ export const useTable = (identity:string) => {
   }
   // 获取第一页的数据
   const getFirstPageList = async () => {
+    if (identifyTotal.value === 0) {
+      tableData.value = []
+      return
+    }
     const res = await batchGetUser({identity:identity, offset:0, limit:CTablePagingSize})
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
@@ -67,6 +72,7 @@ export const useTable = (identity:string) => {
   // 通过账号搜索用户
   const searchUserByAccount = async () => {
     if (!sAccount.value) {
+      // 当搜索内容清空后，返回当前页面的数据
       currentChange(paginationData.currentPage)
       return
     }
@@ -94,11 +100,13 @@ export const useTable = (identity:string) => {
   const clearInput = async () =>{
     await currentChange(paginationData.currentPage)
   }
+  // 外部操作用户后，需要根据操作更新表格
   bus.on(CIdentityDialog, async (id:number) => {
     // 当前页数
     const current = paginationData.currentPage
     // 创建
     if (id == UserDialogOffType.Create) {
+      await returnIndetityListLength()
       await getFirstPageList()
     }
     // 编辑
@@ -107,7 +115,8 @@ export const useTable = (identity:string) => {
     }
     // 降职
     if (id == UserDialogOffType.Downgrade) {
-      await currentChange(current)
+      await returnIndetityListLength()
+      await getFirstPageList()
     }
     // 删除
     if (id == UserDialogOffType.Delete) {
@@ -133,17 +142,11 @@ export const useTable = (identity:string) => {
   watch (
     // 只监听paginationData对象中的currentPage字段
     () => paginationData.currentPage,
+    // 变化后触发函数
     () => {
       currentChange(paginationData.currentPage)
     },
   )
-  // 身份对应人数发生变化
-  // watch (
-  //   identifyTotal,
-  //   () => {
-  //     returnIndetityListLength()
-  //   },
-  // )
   return {
     initTable,
     sAccount,

@@ -43,6 +43,7 @@ export interface ICreateAdminData {
   sex: number
 	department: string
 	email: string
+  identity: string
 }
 
 // 编辑管理员接口

@@ -1,21 +1,5 @@
-<template>
-  <el-dialog v-model="dialogPromoteVisible" title="赋权操作" center width="30%">
-    <el-radio-group v-model="radio" class="ml-4">
-      <el-radio label="产品管理员" size="large">产品管理员</el-radio>
-      <el-radio label="用户管理员" size="large">用户管理员</el-radio>
-      <el-radio label="消息管理员" size="large">消息管理员</el-radio>
-    </el-radio-group>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button type="primary" @click="yes">
-          确定
-        </el-button>
-      </span>
-    </template>
-  </el-dialog>
-</template>
-
 <script lang="ts" setup>
+  // 赋权组件
   import { ref } from 'vue'
   import { type IChangeIdentify, changeIdentity } from '@/api/userinfo'
   import { ElMessage } from 'element-plus'
@@ -59,6 +43,23 @@
     open
   })
 </script>
+
+<template>
+  <el-dialog v-model="dialogPromoteVisible" title="赋权操作" center width="30%">
+    <el-radio-group v-model="radio" class="ml-4">
+      <el-radio label="产品管理员" value="产品管理员" size="large">产品管理员</el-radio>
+      <el-radio label="用户管理员" value="用户管理员" size="large">用户管理员</el-radio>
+      <el-radio label="消息管理员" value="消息管理员" size="large">消息管理员</el-radio>
+    </el-radio-group>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="yes">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+</template>
 
 <style lang="scss" scoped>
   .el-radio-group {

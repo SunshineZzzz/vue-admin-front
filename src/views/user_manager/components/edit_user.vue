@@ -1,10 +1,10 @@
 <script lang="ts" setup>
+  // 编辑用户组件
   import { reactive, ref, } from 'vue'
   import { editAdmin, getUserInfo } from '@/api/userinfo.js'
   import { getDepartment } from '@/api/setting'
   import { ElMessage } from 'element-plus'
-  import { UserDialogOffType } from '@/define/index'
-  import { CIdentityDialog } from '@/define/index'
+  import { CIdentityDialog, UserDialogOffType } from '@/define/index'
   import { bus } from '@/utils/mitt'
 
   // 接收父组件传递过来的数据
@@ -115,8 +115,8 @@
         </el-form-item>
         <el-form-item label="性别" prop="sex">
           <el-select v-model="formDataInfo.sex" placeholder="请选择性别">
-            <el-option label="男" value="1" />
-            <el-option label="女" value="2" />
+            <el-option label="男" :value="1" />
+            <el-option label="女" :value="2" />
           </el-select>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">

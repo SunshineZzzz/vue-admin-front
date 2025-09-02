@@ -1,4 +1,5 @@
 import { bus } from "@/utils/mitt.js"
+import { type ISimpleUserInfoData } from '@/define/index'
 
 // 订阅changename
 export function SubChangeName(callback: (name: string) => void) {
@@ -25,7 +26,6 @@ export function RemovePrefix(str: string, prefix: string):string {
   return str
 }
 
-
 // 获取显示标题
 export function GetShowTitle(type:string) {
   switch (type) {
@@ -46,4 +46,15 @@ export function GetShowTitle(type:string) {
 export function FormatSecDateYMD(timestamp:number) {
   if (!timestamp) return '';
   return new Date(timestamp * 1000).toISOString().slice(0, 10);
+}
+
+// 性别格式化函数
+export const SexFormatter = (data: ISimpleUserInfoData) => {
+  if (data.sex === 1) {
+    return '男'
+  } else if (data.sex === 2) {
+    return '女'
+  } else {
+    return ''
+  }
 }
