@@ -52,6 +52,16 @@ const router = createRouter({
           path: '/product_manage',
           component: () => import('@/views/user_manager/product_manage/index.vue')
         },
+        {
+          name: 'product_manage_list',
+          path: '/product_manage_list',
+          component: () => import('@/views/product/product_manage_list/index.vue')
+        },
+        {
+          name: 'out_product_manage_list',
+          path: '/out_product_manage_list',
+          component: () => import('@/views/product/out_product_manage_list/index.vue')
+        }
       ]
     },
   ],

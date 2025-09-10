@@ -58,7 +58,7 @@
 
 <template>
   <el-dialog v-model="state.changePasswordDialog" title="修改密码" width="400px">
-    <el-form class="login-form" :label-position="labelPosition" :rules="rules">
+    <el-form class="login-form" :label-position="labelPosition" :model="passwordData" :rules="rules">
       <el-form-item label="请输入您的旧密码" prop="oldPassword">
         <el-input v-model="passwordData.oldPassword" placeholder="请输入您的旧密码" show-password />
       </el-form-item>

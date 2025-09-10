@@ -47,19 +47,6 @@ export const useTable = (identity:string) => {
     identifyTotal.value = Number(res.data.data.count)
     paginationData.pageCount = Math.ceil(res.data.data.count/CTablePagingSize)
   }
-  // 获取第一页的数据
-  const getFirstPageList = async () => {
-    if (identifyTotal.value === 0) {
-      tableData.value = []
-      return
-    }
-    const res = await batchGetUser({identity:identity, offset:0, limit:CTablePagingSize})
-    if (res.data.status !== 0) {
-      ElMessage.error(res.data.message)
-      return
-    }
-    tableData.value = res.data.data.userList
-  }
   // 监听换页
   const currentChange = async (value:number) => {
     const res = await batchGetUser({identity:identity, offset:(paginationData.currentPage-1), limit:CTablePagingSize})
@@ -101,42 +88,64 @@ export const useTable = (identity:string) => {
     await currentChange(paginationData.currentPage)
   }
   // 外部操作用户后，需要根据操作更新表格
+  bus.off(CIdentityDialog)
   bus.on(CIdentityDialog, async (id:number) => {
     // 当前页数
     const current = paginationData.currentPage
     // 创建
     if (id == UserDialogOffType.Create) {
       await returnIndetityListLength()
-      await getFirstPageList()
+      paginationData.currentPage = 1
+      if (current == paginationData.pageCount) {
+        currentChange(paginationData.pageCount)
+      }
+      return
     }
     // 编辑
     if (id == UserDialogOffType.Edit) {
       await currentChange(current)
+      return
     }
     // 降职
     if (id == UserDialogOffType.Downgrade) {
       await returnIndetityListLength()
-      await getFirstPageList()
+      paginationData.currentPage = 1
+      if (current == paginationData.currentPage) {
+        currentChange(paginationData.currentPage)
+      }
+      return
     }
     // 删除
     if (id == UserDialogOffType.Delete) {
       await returnIndetityListLength()
-      await getFirstPageList()
+      paginationData.currentPage = 1
+      if (current == paginationData.currentPage) {
+        currentChange(paginationData.currentPage)
+      }
+      return
     }
     // 升职
     if (id == UserDialogOffType.Promote) {
       await returnIndetityListLength()
-      await getFirstPageList()
+      paginationData.currentPage = 1
+      if (current == paginationData.currentPage) {
+        currentChange(paginationData.currentPage)
+      }
+      return
     }
   })
   // 初始化
   const initTable = async () => {
     // 先返回身份列表长度
     await returnIndetityListLength()
-    // 获取第一页
-    await getFirstPageList()
     // 获取所有部门
     await getAllDepartment()
+    // 当前页数
+    const current = paginationData.currentPage
+    paginationData.currentPage = 1
+    if (current == paginationData.currentPage) {
+      currentChange(paginationData.currentPage)
+    }
   }
   // 页码发生变化，触发
   watch (

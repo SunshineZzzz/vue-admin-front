@@ -88,7 +88,7 @@
 <template>
   <!-- 忘记密码 -->
   <el-dialog v-model="state.forgetPasswordDialog" title="忘记密码" width="400px">
-    <el-form v-if="state.forgetPasswordDialog" class="login-form" label-width="auto" :label-position="labelPosition" :rules="rules">
+    <el-form v-if="state.forgetPasswordDialog" :model="verifyData" class="login-form" label-width="auto" :label-position="labelPosition" :rules="rules">
       <el-form-item label="输入您的注册账号" prop="account">
         <el-input v-model="verifyData.account" placeholder="输入您的注册账号" />
       </el-form-item>
@@ -108,7 +108,7 @@
   </el-dialog>
   <!-- 修改密码 -->
   <el-dialog v-model="state.changePasswordDialog" title="修改密码" width="400px">
-    <el-form v-if ="state.changePasswordDialog" class="login-form" label-width="auto" :label-position="labelPosition" :rules="rules">
+    <el-form v-if ="state.changePasswordDialog" :model="verifyData" class="login-form" label-width="auto" :label-position="labelPosition" :rules="rules">
       <el-form-item label="输入您的新密码" prop="password">
         <el-input v-model="resetData.password" placeholder="输入您的新密码" show-password/>
       </el-form-item>

@@ -9,7 +9,7 @@
   import { type ISimpleUserInfoData, CreateAdminType } from '@/define/index'
   import { SexFormatter } from '@/tool/index'
   import { useTable } from '@/hooks'
-    const { 
+  const { 
     initTable,
     sAccount,
     paginationData,
@@ -69,9 +69,9 @@
 				<div class="search-wrapped">
 					<el-input v-model="sAccount" class="w-50 m-2" size="large" placeholder="输入账号进行搜索"
 					 @change='searchUserByAccount()' clearable @clear="clearInput()">
-          <template #prefix>
-            <Search />
-          </template>
+            <template #prefix>
+              <Search />
+            </template>
           </el-input>
 				</div>
 				<div class="button-wrapped">

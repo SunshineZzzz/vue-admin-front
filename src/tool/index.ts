@@ -3,6 +3,7 @@ import { type ISimpleUserInfoData } from '@/define/index'
 
 // 订阅changename
 export function SubChangeName(callback: (name: string) => void) {
+  bus.off('changename')
   bus.on('changename', callback)
 }
 // 推送changename
