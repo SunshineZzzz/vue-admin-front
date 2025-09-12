@@ -4,40 +4,41 @@
   import breadCrumb from '@/components/bread_crumb.vue'
   import introduce from './components/introduce.vue'
   import { getAllSwiper, getAllCompanyInfo } from '@/api/setting'
-  import { type IBatchMessageData, batchMessageList } from '@/api/message'
+  import { type IBatchMessageListByReceptDepartment, batchMessageListByReceptDepartment } from '@/api/message'
   import { ElMessage } from 'element-plus'
   import { GetImageUrl, RemovePrefix, GetShowTitle, FormatSecDateYMD } from '@/tool/index'
   import bulletin from '@/components/common_msg.vue'
+  import type { IMessageInfoData } from '@/define'
 
   // 面包屑参数
   const items = ref([
     { name: "首页" }
   ])
 	// 公司公告
-	const companyData = ref()
+	const companyData = ref<IMessageInfoData[]>([])
 	// 系统消息
-	const systemData = ref()
+	const systemData = ref<IMessageInfoData[]>([])
   // 获取消息
 	const getMessageList = async () =>{
-    let data:IBatchMessageData = {
-      category: '公司公告',
+    let data:IBatchMessageListByReceptDepartment = {
+      recept_department: '公告',
       offset: 0,
       limit: 5,
     }
-    let res = await batchMessageList(data)
+    let res = await batchMessageListByReceptDepartment(data)
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
       return
     }
-    companyData.value = res.data.data.messageArr
+    companyData.value = res.data.data.messageList
 
-    data.category = '系统消息'
-    res = await batchMessageList(data)
+    data.recept_department = '系统'
+    res = await batchMessageListByReceptDepartment(data)
     if (res.data.status !== 0) {
       ElMessage.error(res.data.message)
       return
     }
-		systemData.value = res.data.data.messageArr
+		systemData.value = res.data.data.messageList
 	}
 	getMessageList()
 	// 轮播图
@@ -141,7 +142,8 @@
                 v-if="row.level==='必要'">{{row.level}}</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="department" label="发布部门" />
+          <el-table-column prop="publish_department" label="发布部门" />
+          <el-table-column prop="recept_department" label="接收部门" />
           <el-table-column prop="create_time" label="发布时间" width="200">
             <template #default="{row}">
               <div>{{FormatSecDateYMD(row.create_time)}}</div>
@@ -154,6 +156,15 @@
         <span class="title">系统消息</span>
         <el-table :data="systemData" style="width: 100%" :show-header='false' @row-dblclick="dblOpenSystem">
           <el-table-column prop="title" label="公告主题"  />
+          <el-table-column prop="level" label="等级">
+            <template #default='{row}'>
+              <el-tag class="mx-1" round v-if="row.level==='一般'">{{row.level}}</el-tag>
+              <el-tag type="warning" class="mx-1" round
+                v-if="row.level==='重要'">{{row.level}}</el-tag>
+              <el-tag type="danger" class="mx-1" round
+                v-if="row.level==='必要'">{{row.level}}</el-tag>
+            </template>
+          </el-table-column>
           <el-table-column prop="create_time" label="发布时间" width="200">
             <template #default="{row}">
               <div>{{FormatSecDateYMD(row.create_time)}}</div>

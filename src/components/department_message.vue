@@ -1,12 +1,15 @@
 <script lang="ts" setup>
+  // 部门消息组件
   import { reactive, ref, } from 'vue'
   import { useMessageStore } from '@/stores/message'
   import { FormatSecDateYMD } from '@/tool/index'
+  import { updateMessageClick } from '@/api/message'
+  import { type IMessageInfoData } from '@/define/index'
 
   // 用户消息存储对象
   const messageStore = useMessageStore()
   // 当前需要读取的消息数组
-  const readList = ref<number[]>(messageStore.read_list)
+  const readList = ref<number[]>([])
   // id是否在当前读取的消息数组
   const idInReadList = (id : number) => {
     return (readList.value.indexOf(id) !== -1)
@@ -17,14 +20,21 @@
     content: '',
   })
   // 获取部门消息详情
-  const getDetail = async (row : any) => {
+  const getDetail = async (row: IMessageInfoData) => {
+    if (!readList.value.includes(row.msg_id!)) {
+      readList.value.push(row.msg_id!)
+    }
     messageInfo.title = row.title
     messageInfo.content = row.content
+    await updateMessageClick({msgId: row.msg_id!, clickNum: 1})
   }
   // 弹窗默认为false
   const dialog = ref(false)
   // 暴露open
   const open = async () => {
+    messageInfo.title = ''
+    messageInfo.content = ''
+
     // 获取部门消息
     await messageStore.getMessageList()
     dialog.value = true
@@ -58,6 +68,7 @@
                   </div>
                 </template>
               </el-table-column>
+              <el-table-column label="接收部门" prop="recept_department" />
               <el-table-column label="等级" prop="level">
                 <template #default='{row}'>
                   <el-tag class="mx-1" round

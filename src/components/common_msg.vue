@@ -1,24 +1,29 @@
 <script lang='ts' setup>
+  // 消息弹窗组件
   import { reactive, ref } from 'vue'
   import { FormatSecDateYMD } from '@/tool/index'
-  import { type IMessageData } from '@/define/index'
+  import { type IMessageInfoData } from '@/define/index'
 
   // 消息信息
-  let messageInfo = reactive<IMessageData>({
-    id: 0,
-    msg_id: 0,
-    title: '',
+  let messageInfo = reactive<IMessageInfoData>({
+	  msg_id: null,
+    recept_department: '',
+	  title: '',
     content: '',
-    department: '',
-    category: '',
-    level: '',
-    name: '',
-    create_time: 0
+    create_time: 0,
+    update_time: 0,
+    delete_time: 0,
+    user_id: 0,
+	  publish_department: '',
+	  publish_name: '',
+	  level: '',
+    status: '',
+    click_num: 0,
   })
   // 弹窗默认为false
   const dialog = ref(false)
   // 暴露open
-  const open = async (raw:IMessageData) => {
+  const open = async (raw:IMessageInfoData) => {
     Object.assign(messageInfo, raw)
     dialog.value = true
   }
@@ -29,7 +34,7 @@
 </script>
 
 <template>
-  <el-dialog v-model="dialog" :title="messageInfo.category" width="800px" center>
+  <el-dialog v-model="dialog" :title="messageInfo.title" width="800px" center>
     <el-container>
       <el-main>
         <!-- 主题 -->
@@ -38,10 +43,9 @@
         <div class="content" v-html="messageInfo.content"></div>
       </el-main>
       <el-aside width="200px">
-        <div class="publish-msg" v-if="messageInfo.category==='公司公告'||messageInfo.category==='系统消息'">发布部门：{{messageInfo.department}}</div>
-        <div class="publish-msg">发布人：{{messageInfo.name}}</div>
-        <div class="publish-msg">类别：{{messageInfo.category}}</div>
-        <div class="publish-msg" v-if="messageInfo.category=='公司公告'||messageInfo.category=='系统消息'">等级：
+        <div class="publish-msg">接收部门：{{messageInfo.recept_department}}</div>
+        <div class="publish-msg">发布人：{{messageInfo.publish_name}}</div>
+        <div class="publish-msg">等级：
           <el-tag class="mx-1" round v-if="messageInfo.level==='一般'">{{messageInfo.level}}</el-tag>
           <el-tag type="warning" class="mx-1" round
           v-if="messageInfo.level==='重要'">{{messageInfo.level}}</el-tag>

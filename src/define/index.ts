@@ -1,16 +1,3 @@
-// 消息数据接口
-export interface IMessageData {
-  id: number
-  msg_id: number
-  title: string
-  content: string
-  department: string
-  category: string
-  level: string
-  name: string
-  create_time: number
-}
-
 // 简单用户信息接口
 export interface ISimpleUserInfoData {
   id: number
@@ -24,7 +11,7 @@ export interface ISimpleUserInfoData {
   status: number
 }
 
-// 用户对话框类型
+// 用户对话框关闭类型
 export enum UserDialogOffType {
   Create = 1,
   Edit,
@@ -63,7 +50,7 @@ export interface IProductInfoData {
 	out_user_name:string
 }
 
-// 产品对话框类型
+// 产品对话框关闭类型
 export enum ProductDialogOffType {
   Create = 1,
   Edit,
@@ -77,11 +64,46 @@ export enum SearchProductType {
   outProduct = 3,
 }
 
+// 消息信息接口
+export interface IMessageInfoData {
+	msg_id: number|null
+  recept_department: string
+	title: string
+  content: string
+  create_time: number
+  update_time: number
+  delete_time: number
+  user_id: number
+	publish_department: string
+	publish_name: string
+	level: string
+  status: string
+  click_num: number
+}
+
+// 消息对话框关闭类型
+export enum MessageDialogOffType {
+  Create = 1,
+  Edit,
+  Delete,
+}
+
+// 回收站消息对话框关闭类型
+export enum RecycleDialogOffType {
+  Recover = 1,
+  Delete,
+}
+
 // 表分页大小
 export const CTablePagingSize = 1
-// 身份对话框
+// 身份对话框关闭关键字
 export const CIdentityDialog = "identityDialogOff"
-// 产品对话框
+// 产品对话框关闭关键字
 export const CProductDialog = "productDialogOff"
-// 申请出库产品对话框
+// 申请出库产品对话框关闭关键字
 export const CApplyOutProductDialog = "applyOutProductDialogOff"
+// 消息对话框关闭关键字
+export const CMessageDialog = "messageDialogOff"
+// 回收站对话框关闭关键字
+export const CRecycleDialog = "recycleDialogOff"
+

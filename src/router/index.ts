@@ -61,6 +61,16 @@ const router = createRouter({
           name: 'out_product_manage_list',
           path: '/out_product_manage_list',
           component: () => import('@/views/product/out_product_manage_list/index.vue')
+        },
+        {
+          name: 'message_list',
+          path: '/message_list',
+          component: () => import('@/views/message/message_list/index.vue')
+        },
+        {
+          name: 'recycle_message_list',
+          path: '/recycle_message_list',
+          component: () => import('@/views/message/recycle_list/index.vue')
         }
       ]
     },

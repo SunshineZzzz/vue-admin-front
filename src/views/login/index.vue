@@ -37,10 +37,16 @@
       return
     }
     ElMessage.success(res.data.message)
-    const { id, token } = res.data.data
+    const { id, department,token } = res.data.data
     localStorage.setItem("token", token)
     await userInfoStore.userInfo(id)
-    await messageStore.returnReadList()
+
+    messageStore.read_list = []
+    messageStore.msg_list = []
+    
+    await messageStore.returnReadList(department)
+    await messageStore.returnReadList('系统')
+    await messageStore.returnReadList('公告')
     router.push('/menu')
   }
   // 注册

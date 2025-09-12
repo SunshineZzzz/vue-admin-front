@@ -266,7 +266,6 @@ export const useProductTable = () => {
       applyProductCurrentChange(applyProductPaginationData.currentPage)
     },
   )
-  // 页码发生变化，触发
   watch (
     () => outProductPaginationData.currentPage,
     () => {

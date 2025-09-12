@@ -95,13 +95,13 @@
 						</template>
 					</el-table-column>
 				</el-table>
+        <!-- 底部 -->
+        <div class="table-footer">
+          <el-pagination :page-size="1" :current-page="paginationData.currentPage" :pager-count="7"
+            :total="identifyTotal" :page-count="paginationData.pageCount" @current-change="pageCurrentChange"
+            layout="prev, pager, next" />
+        </div>
 			</div>
-      <!-- 底部 -->
-      <div class="table-footer">
-        <el-pagination :page-size="1" :current-page="paginationData.currentPage" :pager-count="7"
-          :total="identifyTotal" :page-count="paginationData.pageCount" @current-change="pageCurrentChange"
-          layout="prev, pager, next" />
-      </div>
 		</div>
 	</div>
   <createA ref='create_admin'></createA>

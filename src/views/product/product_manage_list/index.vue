@@ -65,7 +65,7 @@
   const success_in_warehouseCB = () => {
     bus.emit(CProductDialog, ProductDialogOffType.Create)
   }
-  // 申请出库操作影响产品列表、审核产品列表 ，成功回调
+  // 申请出库操作影响产品列表、审核产品列表，成功回调
   const success_changeTwoPageList = () => {
     // 就用create了
     bus.emit(CProductDialog, ProductDialogOffType.Create)
@@ -185,13 +185,13 @@
 										</template>
 									</el-table-column>
 								</el-table>
+                <div class="table-footer">
+                  <el-pagination :page-size="1" :current-page="productPaginationData.currentPage"
+                                :pager-count="7" :total="productTotal"
+                                :page-count="productPaginationData.pageCount" @current-change="productCurrentChange"
+                                layout="prev, pager, next" />
+                </div>
 							</div>
-              <div class="table-footer">
-                <el-pagination :page-size="1" :current-page="productPaginationData.currentPage"
-                              :pager-count="7" :total="productTotal"
-                              :page-count="productPaginationData.pageCount" @current-change="productCurrentChange"
-                              layout="prev, pager, next" />
-              </div>
 						</div>
 					</div>
 				</el-tab-pane>

@@ -27,7 +27,6 @@
 	// 面包屑
 	const breadcrumb = ref()
 	// 面包屑参数
-  // 面包屑参数
   const items = ref([
     { name: '用户管理'},
     { name: '产品管理员'},
@@ -101,13 +100,13 @@
 						</template>
 					</el-table-column>
 				</el-table>
+        <!-- 底部 -->
+        <div class="table-footer">
+          <el-pagination :page-size="1" :current-page="paginationData.currentPage" :pager-count="7"
+            :total="identifyTotal" :page-count="paginationData.pageCount" @current-change="pageCurrentChange"
+            layout="prev, pager, next" />
+        </div>
 			</div>
-      <!-- 底部 -->
-      <div class="table-footer">
-        <el-pagination :page-size="1" :current-page="paginationData.currentPage" :pager-count="7"
-          :total="identifyTotal" :page-count="paginationData.pageCount" @current-change="pageCurrentChange"
-          layout="prev, pager, next" />
-      </div>
 		</div>
 	</div>
   <createA ref="create_admin"></createA>

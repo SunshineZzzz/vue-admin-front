@@ -93,7 +93,7 @@
               <el-menu-item index="message_list">消息列表</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="回收站">
-              <el-menu-item index="recycle">回收站</el-menu-item>
+              <el-menu-item index="recycle_message_list">回收站</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-menu-item index="file" v-if="userInfoStore.identity==='超级管理员'">
