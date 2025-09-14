@@ -100,19 +100,13 @@
             <el-icon>
               <IconMenu />
             </el-icon>
-            <span>合同管理</span>
+            <span>文件管理</span>
           </el-menu-item>
           <el-menu-item index="operation_log" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon>
               <IconMenu />
             </el-icon>
             <span>操作日志</span>
-          </el-menu-item>
-          <el-menu-item index="login_log" v-if="userInfoStore.identity==='超级管理员'">
-            <el-icon>
-              <IconMenu />
-            </el-icon>
-            <span>登录日志</span>
           </el-menu-item>
           <el-menu-item index="set">
             <el-icon>

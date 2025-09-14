@@ -4,7 +4,7 @@
   import { changeIdentity, deleteUser } from '@/api/userinfo'
   import { ElMessage } from 'element-plus'
   import { type ISimpleUserInfoData, UserDialogOffType } from '@/define/index'
-  import { CIdentityDialog } from '@/define/index'
+  import { CIdentityDialogOff } from '@/define/index'
   import { bus } from '@/utils/mitt'
 
   // 接收父组件传递过来的数据
@@ -25,7 +25,7 @@
       }
       ElMessage.success(res.data.message)
       dialogFormVisible.value = false
-      bus.emit(CIdentityDialog, UserDialogOffType.Downgrade)
+      bus.emit(CIdentityDialogOff, UserDialogOffType.Downgrade)
       return
     }
     const res = await deleteUser({id:simpleUserInfo.value!.id})
@@ -36,7 +36,7 @@
     ElMessage.success(res.data.message)
     dialogFormVisible.value = false
     props.offDialog()
-    bus.emit(CIdentityDialog, UserDialogOffType.Delete)
+    bus.emit(CIdentityDialogOff, UserDialogOffType.Delete)
   }
   // 弹窗开关
   const dialogFormVisible = ref(false)

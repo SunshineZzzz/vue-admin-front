@@ -11,8 +11,8 @@ export function PubChangeName(name: string) {
   bus.emit('changename', name)
 }
 
-// 获取用户头像url
-export function GetImageUrl(url: string|undefined):string {
+// 获取下载地址
+export function GetDownloadUrl(url: string|undefined):string {
   if (url && url !== '') {
     return `${import.meta.env.VITE_API_BASEURL}/${url}`;
   }
@@ -47,6 +47,18 @@ export function GetShowTitle(type:string) {
 export function FormatSecDateYMD(timestamp:number) {
   if (!timestamp) return '';
   return new Date(timestamp * 1000).toISOString().slice(0, 10);
+}
+
+// 将字节数转换为KB
+export function BytesToKB(bytes: number, useBinary: boolean = false, decimalPlaces: number = 2): string {
+  if (bytes < 0) {
+    throw new Error('字节数不能为负数');
+  }
+  
+  const base = useBinary ? 1024 : 1000;
+  const kbValue = bytes / base;
+  
+  return `${kbValue.toFixed(decimalPlaces)} ${useBinary ? 'KiB' : 'KB'}`;
 }
 
 // 性别格式化函数

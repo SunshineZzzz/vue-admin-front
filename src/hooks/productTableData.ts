@@ -8,7 +8,7 @@ import {
 import { ref, reactive, watch } from "vue";
 import { bus } from '@/utils/mitt'
 import { ElMessage } from 'element-plus'
-import { CTablePagingSize, CProductDialog, CApplyOutProductDialog } from '@/define/index'
+import { CTablePagingSize, CProductDialogOff, CApplyOutProductDialogOff } from '@/define/index'
 import { type IProductInfoData, ProductDialogOffType, SearchProductType } from '@/define/index'
 
 export const useProductTable = () => {
@@ -167,8 +167,8 @@ export const useProductTable = () => {
   }
 
   // 产品，外部操作用户后，需要根据操作更新表格
-  bus.off(CProductDialog)
-  bus.on(CProductDialog, async (id:number) => {
+  bus.off(CProductDialogOff)
+  bus.on(CProductDialogOff, async (id:number) => {
     // 当前页数
     const current = productPaginationData.currentPage
     // 创建
@@ -196,8 +196,8 @@ export const useProductTable = () => {
     }
   })
   // 申请出库产品，外部操作用户后，需要根据操作更新表格
-  bus.off(CApplyOutProductDialog)
-  bus.on(CApplyOutProductDialog, async (id:number) => {
+  bus.off(CApplyOutProductDialogOff)
+  bus.on(CApplyOutProductDialogOff, async (id:number) => {
     // 当前页数
     const current = applyProductPaginationData.currentPage
     // 创建

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { type IGetUserInfoData, getUserInfo } from '@/api/userinfo'
 import {ref} from "vue";
 import { ElMessage } from 'element-plus'
-import { GetImageUrl } from '@/tool/index'
+import { GetDownloadUrl } from '@/tool/index'
 
 export const useUserInfoStore = defineStore('userinfo', () => {
   const uId = ref<number>()
@@ -27,7 +27,7 @@ export const useUserInfoStore = defineStore('userinfo', () => {
     account.value = res.data.data.account
     email.value = res.data.data.email
     department.value = res.data.data.department
-    imageUrl.value = GetImageUrl(res.data.data.image_url)
+    imageUrl.value = GetDownloadUrl(res.data.data.image_url)
     identity.value = res.data.data.identity
     sex.value = res.data.data.sex
   }

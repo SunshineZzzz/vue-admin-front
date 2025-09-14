@@ -13,7 +13,7 @@
   import { Search } from '@element-plus/icons-vue'
   import type { TabsPaneContext } from 'element-plus'
   import { bus } from "@/utils/mitt"
-  import { type IProductInfoData, CProductDialog, CApplyOutProductDialog, ProductDialogOffType } from '@/define/index'
+  import { type IProductInfoData, CProductDialogOff, CApplyOutProductDialogOff, ProductDialogOffType } from '@/define/index'
   import { FormatSecDateYMD } from '@/tool/index'
   const { 
     productInitTable,
@@ -63,13 +63,13 @@
 	}
   // 入库操作影响产品列表，成功回调
   const success_in_warehouseCB = () => {
-    bus.emit(CProductDialog, ProductDialogOffType.Create)
+    bus.emit(CProductDialogOff, ProductDialogOffType.Create)
   }
   // 申请出库操作影响产品列表、审核产品列表，成功回调
   const success_changeTwoPageList = () => {
     // 就用create了
-    bus.emit(CProductDialog, ProductDialogOffType.Create)
-    bus.emit(CApplyOutProductDialog, ProductDialogOffType.Create)
+    bus.emit(CProductDialogOff, ProductDialogOffType.Create)
+    bus.emit(CApplyOutProductDialogOff, ProductDialogOffType.Create)
   }
 	// 产品申请出库
 	const apply_product = ref()

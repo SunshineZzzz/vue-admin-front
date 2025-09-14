@@ -14,7 +14,7 @@
   import type { UploadProps } from 'element-plus'
   import { useUserInfoStore } from '@/stores/userinfo'
   import { type IBaseResponse } from '@/http/index'
-  import { GetImageUrl, PubChangeName } from '@/tool/index'
+  import { GetDownloadUrl, PubChangeName } from '@/tool/index'
   import change from './components/change_password.vue'
   import editor from './components/editor.vue'
   import {
@@ -92,7 +92,7 @@
     }
     ElMessage.success(response.message)
     userInfoStore.$patch({
-      imageUrl: GetImageUrl(response.data.image_url)
+      imageUrl: GetDownloadUrl(response.data.image_url)
     })
   }
   // 头像上传之前
@@ -171,7 +171,7 @@
     }
     swiperImageUrlArr.value.length = 0
     response.data.data.swiperArr.forEach((item: string) => {
-      swiperImageUrlArr.value.push(GetImageUrl(item))
+      swiperImageUrlArr.value.push(GetDownloadUrl(item))
     })
   }
   // 主动调用一次
@@ -204,7 +204,7 @@
         return
       }
       ElMessage.success(response.message)
-      swiperImageUrlArr.value[index] = GetImageUrl(response.data.image_url)
+      swiperImageUrlArr.value[index] = GetDownloadUrl(response.data.image_url)
     }
     return handleSwiperSuccess
   }

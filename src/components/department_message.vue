@@ -26,7 +26,11 @@
     }
     messageInfo.title = row.title
     messageInfo.content = row.content
-    await updateMessageClick({msgId: row.msg_id!, clickNum: 1})
+    const res = await updateMessageClick({msgId: row.msg_id!, clickNum: 1})
+    if (res.data.status !== 0) {
+      return
+    }
+    row.click_num += 1
   }
   // 弹窗默认为false
   const dialog = ref(false)

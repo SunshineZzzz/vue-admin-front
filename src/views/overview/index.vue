@@ -291,12 +291,6 @@
             </div>
           </el-col>
           <el-col :span="6">
-            <div class="button-area">
-              <SvgIcon icon-name="message" style="width: 24px;height: 24px;"></SvgIcon>
-              <span class="button-name">部门信息</span>
-            </div>
-          </el-col>
-          <el-col :span="6">
             <div class="button-area" @click="routerTo('set')">
               <SvgIcon icon-name="set" style="width: 24px;height: 24px;"></SvgIcon>
               <span class="button-name">系统设置</span>

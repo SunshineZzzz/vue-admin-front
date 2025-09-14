@@ -6,7 +6,7 @@
   import { getAllSwiper, getAllCompanyInfo } from '@/api/setting'
   import { type IBatchMessageListByReceptDepartment, batchMessageListByReceptDepartment } from '@/api/message'
   import { ElMessage } from 'element-plus'
-  import { GetImageUrl, RemovePrefix, GetShowTitle, FormatSecDateYMD } from '@/tool/index'
+  import { GetDownloadUrl, RemovePrefix, GetShowTitle, FormatSecDateYMD } from '@/tool/index'
   import bulletin from '@/components/common_msg.vue'
   import type { IMessageInfoData } from '@/define'
 
@@ -51,7 +51,7 @@
       return
     }
     (response.data.data.swiperArr as string[]).forEach((item: string) => {
-      imageUrl.value.push(GetImageUrl(item))
+      imageUrl.value.push(GetDownloadUrl(item))
     })
 	}
   // 获取轮播图

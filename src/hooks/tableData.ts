@@ -7,7 +7,7 @@ import { getDepartment } from '@/api/setting'
 import { ref, reactive, watch } from "vue";
 import { bus } from '@/utils/mitt'
 import { ElMessage } from 'element-plus'
-import { CTablePagingSize, CIdentityDialog } from '@/define/index'
+import { CTablePagingSize, CIdentityDialogOff } from '@/define/index'
 import { type ISimpleUserInfoData, UserDialogOffType } from '@/define/index'
 
 export const useTable = (identity:string) => {
@@ -88,8 +88,8 @@ export const useTable = (identity:string) => {
     await currentChange(paginationData.currentPage)
   }
   // 外部操作用户后，需要根据操作更新表格
-  bus.off(CIdentityDialog)
-  bus.on(CIdentityDialog, async (id:number) => {
+  bus.off(CIdentityDialogOff)
+  bus.on(CIdentityDialogOff, async (id:number) => {
     // 当前页数
     const current = paginationData.currentPage
     // 创建

@@ -7,7 +7,7 @@
 	import deleteMessage from '../components/delete.vue'
   import { useMessageTable } from '@/hooks'
   import { FormatSecDateYMD } from '@/tool/index'
-  import { CRecycleDialog, RecycleDialogOffType } from '@/define/index'
+  import { CRecycleDialogOff, RecycleDialogOffType } from '@/define/index'
   const { 
     recyclePaginationData,
     recycleTotal,
@@ -38,11 +38,11 @@
   // 删除成功
   const operationMessageSuccessCB = (tag:string) => {
     if (tag === "recover") {
-      bus.emit(CRecycleDialog, RecycleDialogOffType.Recover)
+      bus.emit(CRecycleDialogOff, RecycleDialogOffType.Recover)
       return
     }
     if (tag === "realDelete"){
-      bus.emit(CRecycleDialog, RecycleDialogOffType.Delete)
+      bus.emit(CRecycleDialogOff, RecycleDialogOffType.Delete)
       return
     }
   }
@@ -61,7 +61,7 @@
 					<el-table-column type="index" width="50" />
 					<el-table-column label="消息主题" prop="title" />
 					<el-table-column label="发布部门" prop="publish_department" />
-					<el-table-column label="接收对象" prop="recept_department" />
+					<el-table-column label="接收部门" prop="recept_department" />
 					<el-table-column label="删除日期">
 						<template #default="{row}">
 							<div>{{ FormatSecDateYMD(row.delete_time) }}</div>

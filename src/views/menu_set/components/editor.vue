@@ -14,7 +14,7 @@
     getCompanyIntroduce 
   } from '@/api/setting'
   import type { IBaseResponse } from '@/http'
-  import { GetImageUrl, GetShowTitle } from '@/tool/index'
+  import { GetDownloadUrl, GetShowTitle } from '@/tool/index'
 
   // 富文本标题
   const title = ref<string>("")
@@ -80,7 +80,7 @@
             return
           }
           ElMessage.success(response.message)
-          insertFn(GetImageUrl(response.data.image_url))
+          insertFn(GetDownloadUrl(response.data.image_url))
         },
       },
     }

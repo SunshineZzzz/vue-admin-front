@@ -5,7 +5,7 @@
 	import { getUserInfo, editAdmin } from '@/api/userinfo'
 	import { getDepartment } from '@/api/setting'
 	import { ElMessage } from 'element-plus'
-  import { CIdentityDialog, UserDialogOffType } from '@/define/index'
+  import { CIdentityDialogOff, UserDialogOffType } from '@/define/index'
 
   // 弹窗开关
 	const dialogFormVisible = ref(false)
@@ -75,7 +75,7 @@
     }
     ElMessage.success(res.data.message)
     dialogFormVisible.value = false
-    bus.emit(CIdentityDialog, UserDialogOffType.Edit)
+    bus.emit(CIdentityDialogOff, UserDialogOffType.Edit)
   }
 
 	// 打开编辑管理员的弹窗

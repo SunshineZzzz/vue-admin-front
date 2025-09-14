@@ -94,16 +94,37 @@ export enum RecycleDialogOffType {
   Delete,
 }
 
+// 文件信息接口
+export interface IFileInfoData {
+	file_id: number|null,
+	user_id: number,
+  user_name: string,
+	name: string,
+	url: string,
+	size: number,
+	type: string,
+	download_number: number,
+	create_time: number,
+}
+
+// 文件对话框关闭类型
+export enum FileDialogOffType {
+  Create = 1,
+  Delete = 2,
+}
+
 // 表分页大小
 export const CTablePagingSize = 1
 // 身份对话框关闭关键字
-export const CIdentityDialog = "identityDialogOff"
+export const CIdentityDialogOff = "identityDialogOff"
 // 产品对话框关闭关键字
-export const CProductDialog = "productDialogOff"
+export const CProductDialogOff = "productDialogOff"
 // 申请出库产品对话框关闭关键字
-export const CApplyOutProductDialog = "applyOutProductDialogOff"
+export const CApplyOutProductDialogOff = "applyOutProductDialogOff"
 // 消息对话框关闭关键字
-export const CMessageDialog = "messageDialogOff"
+export const CMessageDialogOff = "messageDialogOff"
 // 回收站对话框关闭关键字
-export const CRecycleDialog = "recycleDialogOff"
+export const CRecycleDialogOff = "recycleDialogOff"
+// 文件对话框关闭关键字
+export const CFileDialogOff = "fileDialogOff"
 

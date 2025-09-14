@@ -4,7 +4,7 @@
 	import { type ICreateAdminData, createAdmin } from '@/api/userinfo'
 	import { getDepartment } from '@/api/setting'
 	import { ElMessage } from 'element-plus'
-  import { CreateAdminType, CIdentityDialog, UserDialogOffType } from '@/define/index'
+  import { CreateAdminType, CIdentityDialogOff, UserDialogOffType } from '@/define/index'
   import { bus } from '@/utils/mitt'
 
   // 对话框标题
@@ -65,7 +65,7 @@
       return
     }
     ElMessage.success(res.data.message)
-		bus.emit(CIdentityDialog, UserDialogOffType.Create)
+		bus.emit(CIdentityDialogOff, UserDialogOffType.Create)
 		dialogFormVisible.value = false
 	}
 

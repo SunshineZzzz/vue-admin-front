@@ -10,7 +10,7 @@
   import { ElMessage } from 'element-plus'
   import { useMessageTable } from '@/hooks'
   import { FormatSecDateYMD } from '@/tool/index'
-  import { CMessageDialog, MessageDialogOffType } from '@/define/index'
+  import { CMessageDialogOff, MessageDialogOffType } from '@/define/index'
   const { 
     sReceptDepartment,
     sDepartment,
@@ -65,18 +65,18 @@
   // 发布/编辑回调
   const createEditMessageSuccsessCB = (tag:string) => {
     if (tag === 'pubish_message') {
-      bus.emit(CMessageDialog, MessageDialogOffType.Create)
+      bus.emit(CMessageDialogOff, MessageDialogOffType.Create)
       return
     }
     if (tag === 'edit_message') {
-      bus.emit(CMessageDialog, MessageDialogOffType.Edit)
+      bus.emit(CMessageDialogOff, MessageDialogOffType.Edit)
       return
     }
   }
   // 删除回调
   const deleteMessageSuccsessCB = (tag:string) => {
     if (tag !== "firstDelete") return
-    bus.emit(CMessageDialog, MessageDialogOffType.Delete)
+    bus.emit(CMessageDialogOff, MessageDialogOffType.Delete)
   }
   // 消息列表监听换页
 	const messageCurrentChange = async (value: number) => {

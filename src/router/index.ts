@@ -71,6 +71,16 @@ const router = createRouter({
           name: 'recycle_message_list',
           path: '/recycle_message_list',
           component: () => import('@/views/message/recycle_list/index.vue')
+        },
+        {
+          name: 'file',
+          path: '/file',
+          component: () => import('@/views/file/index.vue')
+        },
+        {
+          name: 'operation_log',
+          path: '/operation_log',
+          component: () => import('@/views/operation_log/index.vue')
         }
       ]
     },

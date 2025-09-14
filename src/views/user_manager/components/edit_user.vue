@@ -4,7 +4,7 @@
   import { editAdmin, getUserInfo } from '@/api/userinfo.js'
   import { getDepartment } from '@/api/setting'
   import { ElMessage } from 'element-plus'
-  import { CIdentityDialog, UserDialogOffType } from '@/define/index'
+  import { CIdentityDialogOff, UserDialogOffType } from '@/define/index'
   import { bus } from '@/utils/mitt'
 
   // 接收父组件传递过来的数据
@@ -78,7 +78,7 @@
     ElMessage.success(res.data.message)
     dialogFormVisible.value = false
     props.offDialog()
-    bus.emit(CIdentityDialog, UserDialogOffType.Edit)
+    bus.emit(CIdentityDialogOff, UserDialogOffType.Edit)
   }
   // 弹窗开关
   const dialogFormVisible = ref(false)

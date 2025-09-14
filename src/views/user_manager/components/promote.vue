@@ -4,7 +4,7 @@
   import { type IChangeIdentify, changeIdentity } from '@/api/userinfo'
   import { ElMessage } from 'element-plus'
   import { UserDialogOffType } from '@/define/index'
-  import { CIdentityDialog } from '@/define/index'
+  import { CIdentityDialogOff } from '@/define/index'
   import { bus } from '@/utils/mitt'
 
   // 接收父组件传递过来的数据
@@ -31,7 +31,7 @@
     ElMessage.success(res.data.message)
     dialogPromoteVisible.value = false
     props.offDialog()
-    bus.emit(CIdentityDialog, UserDialogOffType.Promote)
+    bus.emit(CIdentityDialogOff, UserDialogOffType.Promote)
   }
   // 打开编辑管理员的弹窗
   const open = (id:number) => {

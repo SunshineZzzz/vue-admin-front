@@ -8,7 +8,7 @@ import {
 import { ref, reactive, watch } from "vue";
 import { bus } from '@/utils/mitt'
 import { ElMessage } from 'element-plus'
-import { CTablePagingSize, CMessageDialog, CRecycleDialog  } from '@/define/index'
+import { CTablePagingSize, CMessageDialogOff, CRecycleDialogOff  } from '@/define/index'
 import { type IMessageInfoData, MessageDialogOffType, RecycleDialogOffType } from '@/define/index'
 
 export const useMessageTable = () => {
@@ -132,8 +132,8 @@ export const useMessageTable = () => {
     await currentChange(paginationData.currentPage)
   }
   // 消息，外部操作用户后，需要根据操作更新表格
-  bus.off(CMessageDialog)
-  bus.on(CMessageDialog, async (id:number) => {
+  bus.off(CMessageDialogOff)
+  bus.on(CMessageDialogOff, async (id:number) => {
     // 当前页数
     const current = paginationData.currentPage
     // 创建
@@ -161,8 +161,8 @@ export const useMessageTable = () => {
     }
   })
   // 回收站消息，外部操作用户后，需要根据操作更新表格
-  bus.off(CRecycleDialog)
-  bus.on(CRecycleDialog, async (id:number) => {
+  bus.off(CRecycleDialogOff)
+  bus.on(CRecycleDialogOff, async (id:number) => {
     // 当前页数
     const current = recyclePaginationData.currentPage
     // 恢复
