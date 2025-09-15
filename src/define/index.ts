@@ -113,6 +113,22 @@ export enum FileDialogOffType {
   Delete = 2,
 }
 
+// 操作日志信息接口
+export interface IOLogInfoData {
+	id: number|null,
+	user_id: number,
+  user_name: string,
+	category: string,
+	content: string,
+	time: number,
+  level: string,
+}
+
+// 操作日志对话框关闭类型
+export enum OLogDialogOffType {
+  DeleteAll = 1,
+}
+
 // 表分页大小
 export const CTablePagingSize = 1
 // 身份对话框关闭关键字
@@ -127,4 +143,6 @@ export const CMessageDialogOff = "messageDialogOff"
 export const CRecycleDialogOff = "recycleDialogOff"
 // 文件对话框关闭关键字
 export const CFileDialogOff = "fileDialogOff"
+// 操作日志对话框关闭关键字
+export const COLogDialogOff = "oLogDialogOff"
 
