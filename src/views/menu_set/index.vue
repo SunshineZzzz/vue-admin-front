@@ -37,6 +37,7 @@
     getProduct,
     setProduct,
   } from '@/api/setting'
+  import { ElInput } from 'element-plus'
 
   // 账号详情
   // 模板引用也可以被用在一个子组件上
@@ -260,7 +261,9 @@
   // 部门显示输入框
   const departmentInputVisible = ref<boolean>(false)
   // 部门输入框模板引用
-  const departmentInputRef = useTemplateRef('departmentInputRef')
+  // 使用 InstanceType 和 typeof 来获取组件实例类型
+  const departmentInputRef = useTemplateRef<InstanceType<typeof ElInput>>('departmentInputRef')
+
   // 获取部门数据
   const getDepartmentData = async () => {
     const res = await getDepartment()
@@ -323,7 +326,7 @@
   // 产品显示输入框
   const productInputVisible = ref<boolean>(false)
   // 产品输入框模板引用
-  const productInputRef = useTemplateRef('productInputRef')
+  const productInputRef = useTemplateRef<InstanceType<typeof ElInput>>('productInputRef')
   // 获取产品数据
   const getProductData = async () => {
     const res = await getProduct()
