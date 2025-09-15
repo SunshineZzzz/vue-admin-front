@@ -9,7 +9,10 @@
   import { useRouter } from 'vue-router'
   import { useUserInfoStore } from '@/stores/userinfo'
   import { useMessageStore } from '@/stores/message'
+  import { useMenuStore } from '@/stores/menu'
 
+  // 菜单存储对象
+  const menuStore = useMenuStore()
   // 用户消息存储对象
   const messageStore = useMessageStore()
   // 用户信息存储对象
@@ -37,7 +40,8 @@
       return
     }
     ElMessage.success(res.data.message)
-    const { id, department,token } = res.data.data
+    const { id, department, token, routerData } = res.data.data
+    menuStore.setRouter(routerData)
     localStorage.setItem("token", token)
     await userInfoStore.userInfo(id)
 

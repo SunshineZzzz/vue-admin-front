@@ -40,13 +40,13 @@
         <!--启用vue-router模式,  启用该模式会在激活导航时以index作为path进行路由跳转-->
         <el-menu class="el-menu-vertical-demo" router>
           <div class="title">通用后台管理系统</div>
-          <el-menu-item index="home">
+          <el-menu-item index="/menu/home">
             <el-icon>
               <House />
             </el-icon>
             <span>首页</span>
           </el-menu-item>
-          <el-menu-item index="overview" v-if="userInfoStore.identity==='超级管理员'">
+          <el-menu-item index="/menu/overview" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon>
               <Document />
             </el-icon>
@@ -60,12 +60,12 @@
               <span>用户管理</span>
             </template>
             <el-menu-item-group title="管理员管理"  v-if="userInfoStore.identity==='超级管理员'">
-              <el-menu-item index="product_manage" >产品管理员</el-menu-item>
-              <el-menu-item index="users_manage" >用户管理员</el-menu-item>
-              <el-menu-item index="message_manage" >消息管理员</el-menu-item>
+              <el-menu-item index="/menu/product_manage" >产品管理员</el-menu-item>
+              <el-menu-item index="/menu/users_manage" >用户管理员</el-menu-item>
+              <el-menu-item index="/menu/message_manage" >消息管理员</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="员工管理" >
-              <el-menu-item index="user_list" >用户列表</el-menu-item>
+              <el-menu-item index="/menu/user_list" >用户列表</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index="4" v-if="userInfoStore.identity==='超级管理员'||userInfoStore.identity==='产品管理员'||userInfoStore.identity==='用户'">
@@ -76,10 +76,10 @@
               <span>产品管理</span>
             </template>
             <el-menu-item-group title="入库管理">
-              <el-menu-item index="product_manage_list">产品列表</el-menu-item>
+              <el-menu-item index="/menu/product_manage_list">产品列表</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="出库管理">
-              <el-menu-item index="out_product_manage_list">出库列表</el-menu-item>
+              <el-menu-item index="/menu/out_product_manage_list">出库列表</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index="5" v-if="userInfoStore.identity==='消息管理员'||userInfoStore.identity==='超级管理员'">
@@ -90,25 +90,25 @@
               <span>消息管理</span>
             </template>
             <el-menu-item-group title="消息管理">
-              <el-menu-item index="message_list">消息列表</el-menu-item>
+              <el-menu-item index="/menu/message_list">消息列表</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="回收站">
-              <el-menu-item index="recycle_message_list">回收站</el-menu-item>
+              <el-menu-item index="/menu/recycle_message_list">回收站</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <el-menu-item index="file" v-if="userInfoStore.identity==='超级管理员'">
+          <el-menu-item index="/menu/file" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon>
               <IconMenu />
             </el-icon>
             <span>文件管理</span>
           </el-menu-item>
-          <el-menu-item index="operation_log" v-if="userInfoStore.identity==='超级管理员'">
+          <el-menu-item index="/menu/operation_log" v-if="userInfoStore.identity==='超级管理员'">
             <el-icon>
               <IconMenu />
             </el-icon>
             <span>操作日志</span>
           </el-menu-item>
-          <el-menu-item index="set">
+          <el-menu-item index="/menu/set">
             <el-icon>
               <Tools />
             </el-icon>

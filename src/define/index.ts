@@ -129,6 +129,17 @@ export enum OLogDialogOffType {
   DeleteAll = 1,
 }
 
+// 菜单信息接口
+export interface IMenuInfoData {
+	name: string,
+	path: string,
+	meta: {
+		title: string,
+	},
+	component: string,
+	children?: IMenuInfoData[],
+}
+
 // 表分页大小
 export const CTablePagingSize = 1
 // 身份对话框关闭关键字

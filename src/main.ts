@@ -19,6 +19,8 @@ import 'virtual:svg-icons-register'
 // 引入全局样式
 import '@/assets/css/table_common.scss'
 import '@/assets/css/wrap_common.scss'
+// 菜单路由存储
+import { useMenuStore } from '@/stores/menu'
 
 const app = createApp(App)
 // 全局注册 Element Plus 的所有图标组件
@@ -27,6 +29,14 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(pinia)
+
+// 菜单路由存储对象
+const menuStore = useMenuStore()
+// 存在保存的路由加载一下
+if (menuStore.menuData) {
+  menuStore.setRouter(menuStore.menuData)
+}
+
 app.use(router)
 app.use(ElementPlus, { locale: zhCn })
 app.mount('#app')

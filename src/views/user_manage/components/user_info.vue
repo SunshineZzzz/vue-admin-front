@@ -8,15 +8,15 @@
 
   // 用户信息
   let userData = reactive<ISimpleUserInfoData>({
-      id: 0,
-      imageUrl: '',
-      account: '',
-      name: '',
-      email: '',
-      sex: 0,
-      identity: '',
-      department: '',
-      status: 0,
+    id: 0,
+    imageUrl: '',
+    account: '',
+    name: '',
+    email: '',
+    sex: 0,
+    identity: '',
+    department: '',
+    status: 0,
   })
   // 暴露给子组件调用，关闭弹窗
   const offDialog = () => {
