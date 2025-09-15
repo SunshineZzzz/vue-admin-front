@@ -1,33 +1,25 @@
-# vue-admin-front
+# 通用后台管理系统前端
 
-This template should help get you started developing with Vue 3 in Vite.
+基于vue3和vite的后台管理系统前端，如果熟悉js/html/css，快速上手可以看[note](./note.md)
 
-## Recommended IDE Setup
+对应的后端项目[vue-admin-back](https://github.com/SunshineZzzz/vue-admin-back)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## 安装依赖
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 运行项目
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### 打包项目
 
 ```sh
 npm run build
 ```
+
+打包生成dist目录直接放入后端项目根目录即可
